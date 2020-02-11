@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">SVAndroidNuevo</string>
+    <string name="sendas_verdes">SENDAS\nVERDES</string>
+    <string name="ordenar">Ordenar</string>
+    <string name="fav">Favoritos</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="buscar">buscar</string>
+    <string name="nombre">Nombre</string>
+    <string name="kilometros">Kilometros</string>
+    <string name="valoracion">Valoracion</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="categoria">Categoria</string>
+    <string name="inicio">Inicio</string>
+    <string name="fin">Fin</string>
+    <string name="from">from</string>
+    <string name="perezas">Perezas</string>
+    <string name="Titulo">Sendas Verdes</string>
 </resources>
