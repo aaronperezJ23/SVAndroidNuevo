@@ -6,7 +6,7 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="450dp" />
+        android:layout_height="400dp" />
     <RelativeLayout
         android:layout_margin="5dp"
         android:layout_width="match_parent"
