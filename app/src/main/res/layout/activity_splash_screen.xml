@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashScreen"
+    android:background="@color/FondoSplash"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/imagenFondo"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_marginTop="160dp"
+        android:src="@drawable/path" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sendas_verdes"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center"
+        android:gravity="bottom"
+        android:text="@string/from"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="14dp"
+        android:fontFamily="sans-serif-light"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="60dp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="bottom"
+        android:text="@string/perezas"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        android:textColor="@color/black" />
+
+</LinearLayout>
