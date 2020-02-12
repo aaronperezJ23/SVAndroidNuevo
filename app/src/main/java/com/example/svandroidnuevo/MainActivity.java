@@ -89,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     public class MyAdapter extends BaseAdapter {
 
         private Context context;
