@@ -6,7 +6,7 @@ Consultar API con geolocalizacion actual.
 
 API rutas verdes, API tiempo.
 
-API altitud. Añadir perfil de la ruta
+**** API altitud. Añadir perfil de la ruta
 
 Distancia y ruta (shared prefereneces).
 
