@@ -39,13 +39,15 @@ public class MainActivity extends AppCompatActivity {
     private ListView lv = null;
     private MyAdapter myadapter;
 
+    private ArrayList<HelperParser.Ruta> mRutas;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
 
-        //TestSSL();
+        TestSSL();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         private Context context;
         private  int layout;
         private ArrayList<String> names;
+
 
         public MyAdapter(Context context, int layout, ArrayList<String> names) {
             this.context = context;
@@ -191,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Request request, IOException e) {
 
+
                 Log.e(TAG, request.toString());
             }
 
@@ -200,7 +204,21 @@ public class MainActivity extends AppCompatActivity {
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
                 } else {
-                    Log.d(TAG, response.body().string());
+
+                    //Log.d(TAG, response.body().string());
+                    Log.d(TAG, response.toString());
+
+                    HelperParser myparser = new HelperParser();
+                    mRutas = myparser.parseRutas(response.body().string());
+                    Log.d(TAG,String.valueOf(mRutas.isEmpty()));
+                    for(int i = 0; i<mRutas.size();i++){
+                        //Log.d("hola", response);
+
+                        Log.d(TAG, mRutas.get(i).getmName());
+                        Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
+                        Log.d(TAG, mRutas.get(i).getmCategoria());
+                    }
+
                 }
             }
         });
