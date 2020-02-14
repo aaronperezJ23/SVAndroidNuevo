@@ -29,6 +29,9 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.net.ssl.SSLContext;
 
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private MyAdapter myadapter;
 
     private ArrayList<HelperParser.Ruta> mRutas;
+    private String[] mCategorias= new String[224];
+    private String[] mInicio= new String[224];
 
 
 
@@ -74,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
             lv.setAdapter(adapter);
 
         }else{
-            myadapter = new MyAdapter(this, R.layout.descripcion_lista, mNames);
-            lv.setAdapter(myadapter);
+            //myadapter = new MyAdapter(this, R.layout.descripcion_lista, mRutas);
+            //lv.setAdapter(myadapter);
         }
         //SI PULSAS QUE SALDRA UN MENSAJITO
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -90,8 +95,52 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     public class MyAdapter extends BaseAdapter {
+
+        private Context context;
+        private  int layout;
+        private ArrayList<HelperParser.Ruta> rutas;
+
+        public MyAdapter(Context context, int layout, ArrayList<HelperParser.Ruta> rutas) {
+            this.context = context;
+            this.layout = layout;
+            this.rutas = rutas;
+        }
+
+        @Override
+        public int getCount() {return this.rutas.size();}
+
+        @Override
+        public Object getItem(int i) {
+            return this.rutas.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup ViewGroup) {
+            //Copiamos la vista
+            View v = view;
+
+            LayoutInflater layoutInflater = LayoutInflater.from(this.context);
+
+
+            v = layoutInflater.inflate(R.layout.descripcion_lista, null);
+            TextView textView1 = (TextView) v.findViewById(R.id.textNom);
+            textView1.setText(rutas.get(i).getmName());
+            TextView textView2 = (TextView) v.findViewById(R.id.textKms);
+            textView2.setText(rutas.get(i).getmLongitud().toString());
+            TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
+            textView3.setText(rutas.get(i).getmCategoria());
+
+            return v;
+        }
+    }
+
+ /*   public class MyAdapter extends BaseAdapter {
 
         private Context context;
         private  int layout;
@@ -135,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
             return v;
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -213,11 +262,44 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG,String.valueOf(mRutas.isEmpty()));
                     for(int i = 0; i<mRutas.size();i++){
                         //Log.d("hola", response);
+                        mCategorias[i]=(mRutas.get(i).getmCategoria());
+                        //mLocalizaciones.add(mRutas.get(i).getmLocalizacion());
+                        //mInicio[i]=(mRutas.get(i).getmInicio());
+                        //Log.d(TAG, mRutas.get(i).getmName());
+                        //Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
+                        //Log.d(TAG, mRutas.get(i).getmCategoria());
+                        //Log.d(TAG, mRutas.get(i).getmENP());
 
-                        Log.d(TAG, mRutas.get(i).getmName());
-                        Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
-                        Log.d(TAG, mRutas.get(i).getmCategoria());
                     }
+
+                    Arrays.sort(mCategorias);
+
+                    //for (int i=0; i<mCategorias.length;i++){
+                      //  Log.d(TAG,mCategorias[i]);
+                    //}
+
+                    for (HelperParser.Ruta mRuta : mRutas) {
+                        HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
+                        for (HelperParser.Localizacion localizacion1 : localizacion) {
+                            //System.out.println(mRuta.getmName() + "---" + localizacion1.getLat());
+
+                        }
+                    }
+                    //Arrays.sort(mInicio);
+
+                    //for (int i=0; i<mInicio.length;i++){
+                      //  Log.d(TAG,mInicio[i]);
+                    //}
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            myadapter=new MyAdapter(MainActivity.this, R.layout.descripcion_lista,mRutas);
+                            lv.setAdapter(myadapter);
+                        }
+                    });
+
+
 
                 }
             }
