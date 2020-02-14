@@ -217,7 +217,9 @@ public class MainActivity extends AppCompatActivity {
 
                         //Log.d(TAG, mRutas.get(i).getmName());
                         //Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
-                        Log.d(TAG, mRutas.get(i).getmCategoria());
+                        //Log.d(TAG, mRutas.get(i).getmCategoria());
+                        Log.d(TAG, mRutas.get(i).getmENP());
+
                     }
 
                     //for (int i=0; i<mCategorias.size();i++){
