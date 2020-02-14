@@ -218,8 +218,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG,String.valueOf(mRutas.isEmpty()));
                     for(int i = 0; i<mRutas.size();i++){
                         //Log.d("hola", response);
-                        mCategorias[i]=(mRutas.get(i).getmCategoria());
-                        mInicio[i]=(mRutas.get(i).getmInicio());
+                        //mCategorias[i]=(mRutas.get(i).getmCategoria());
+                        //mInicio[i]=(mRutas.get(i).getmInicio());
                         //Log.d(TAG, mRutas.get(i).getmName());
                         //Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
                         //Log.d(TAG, mRutas.get(i).getmCategoria());

@@ -153,9 +153,20 @@ public class HelperParser {
                     JSONArray coordenadas = geo.getJSONArray("coordinates");
                     for(int i = 0; i < coordenadas.length();i++){
                         JSONArray node = coordenadas.getJSONArray(i);
-                        loc[i] = new Localizacion(node.getDouble(0), node.getDouble(1));
-                        //System.out.println(loc[i].toString());
-                        //System.out.println("Lat: " + node.getDouble(0) + " - Lon: " +node.getDouble(1));
+                        //loc[i] = new Localizacion(node.getDouble(0), node.getDouble(1));
+                        //System.out.println(node.get(0).getClass().getSimpleName());
+
+                        if(node.get(0).getClass().getSimpleName().equalsIgnoreCase("Double")){
+                            System.out.println("-" + node.get(0) + node.get(1));
+                        }else {
+                            //System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++" + node.get(0));
+                            //loc[i] = new Localizacion(node.getDouble(0), node.getDouble(1));
+                            //JSONArray array = node.getJSONArray(0);
+                            //for (int j = 0; j < array.length(); j++)
+                              //  System.out.println("Lat: " + array.getDouble(0));
+                            //System.out.println(loc[i].toString());
+                            //System.out.println("Lat: " + node.getDouble(0) + " - Lon: " +node.getDouble(1));
+                        }
 
 
                     }
