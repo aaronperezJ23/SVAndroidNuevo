@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -132,9 +133,25 @@ public class MainActivity extends AppCompatActivity {
             TextView textView1 = (TextView) v.findViewById(R.id.textNom);
             textView1.setText(rutas.get(i).getmName());
             TextView textView2 = (TextView) v.findViewById(R.id.textKms);
-            textView2.setText(rutas.get(i).getmLongitud().toString());
+            textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
             TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
             textView3.setText(rutas.get(i).getmCategoria());
+            ImageView imageView = v.findViewById(R.id.imageView2);
+
+            if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
+                imageView.setImageResource(R.drawable.federacionmontana);
+            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Rutas por la Red de Vías Pecuarias")){
+                imageView.setImageResource(R.drawable.vp);
+            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Rutas por la Red de Espacios Naturales Protegidos")){
+                imageView.setImageResource(R.drawable.seprona);
+            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Sendas Verdes de Madrid")){
+                imageView.setImageResource(R.drawable.unnamed);
+            }else{
+                imageView.setImageResource(R.drawable.ic_launcher_background);
+            }
+
+
+
 
             return v;
         }
@@ -274,17 +291,17 @@ public class MainActivity extends AppCompatActivity {
 
                     Arrays.sort(mCategorias);
 
-                    //for (int i=0; i<mCategorias.length;i++){
-                      //  Log.d(TAG,mCategorias[i]);
-                    //}
+                    for (int i=0; i<mCategorias.length;i++){
+                          Log.d(TAG,mCategorias[i]);
+                    }
 
-                    for (HelperParser.Ruta mRuta : mRutas) {
+                    /*for (HelperParser.Ruta mRuta : mRutas) {
                         HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
                         for (HelperParser.Localizacion localizacion1 : localizacion) {
                             //System.out.println(mRuta.getmName() + "---" + localizacion1.getLat());
 
                         }
-                    }
+                    }*/
                     //Arrays.sort(mInicio);
 
                     //for (int i=0; i<mInicio.length;i++){
