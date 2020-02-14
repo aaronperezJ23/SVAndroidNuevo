@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private MyAdapter myadapter;
 
     private ArrayList<HelperParser.Ruta> mRutas;
-
+    private ArrayList<String> mCategorias;
 
 
     @Override
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         mNames.add("Dell");
 
 
-
+/*
         if(mListSimple){
             ArrayAdapter<String> adapter =
                     new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mNames);
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Has pulsado: " + mNames.get(position), Toast.LENGTH_LONG).show();
             }
         });
-
+*/
     }
 
 
@@ -213,11 +213,16 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG,String.valueOf(mRutas.isEmpty()));
                     for(int i = 0; i<mRutas.size();i++){
                         //Log.d("hola", response);
+                        //mCategorias.set(i, mRutas.get(i).getmCategoria());
 
-                        Log.d(TAG, mRutas.get(i).getmName());
-                        Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
+                        //Log.d(TAG, mRutas.get(i).getmName());
+                        //Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
                         Log.d(TAG, mRutas.get(i).getmCategoria());
                     }
+
+                    //for (int i=0; i<mCategorias.size();i++){
+                      //  Log.d(TAG,mCategorias.get(i).toString());
+                    //}
 
                 }
             }
