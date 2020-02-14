@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<HelperParser.Ruta> mRutas;
     private String[] mCategorias= new String[224];
     private String[] mInicio= new String[224];
-    //private String[] mCategorias= new String[224];
+
 
 
     @Override
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         mNames.add("Dell");
 
 
-/*
+
         if(mListSimple){
             ArrayAdapter<String> adapter =
                     new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mNames);
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Has pulsado: " + mNames.get(position), Toast.LENGTH_LONG).show();
             }
         });
-*/
+
     }
 
 
@@ -219,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
                     for(int i = 0; i<mRutas.size();i++){
                         //Log.d("hola", response);
                         mCategorias[i]=(mRutas.get(i).getmCategoria());
+                        //mLocalizaciones.add(mRutas.get(i).getmLocalizacion());
                         //mInicio[i]=(mRutas.get(i).getmInicio());
                         //Log.d(TAG, mRutas.get(i).getmName());
                         //Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
@@ -229,10 +230,17 @@ public class MainActivity extends AppCompatActivity {
 
                     Arrays.sort(mCategorias);
 
-                    for (int i=0; i<mCategorias.length;i++){
-                        Log.d(TAG,mCategorias[i]);
-                    }
+                    //for (int i=0; i<mCategorias.length;i++){
+                      //  Log.d(TAG,mCategorias[i]);
+                    //}
 
+                    for (HelperParser.Ruta mRuta : mRutas) {
+                        HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
+                        for (HelperParser.Localizacion localizacion1 : localizacion) {
+                            //System.out.println(mRuta.getmName() + "---" + localizacion1.getLat());
+
+                        }
+                    }
                     //Arrays.sort(mInicio);
 
                     //for (int i=0; i<mInicio.length;i++){

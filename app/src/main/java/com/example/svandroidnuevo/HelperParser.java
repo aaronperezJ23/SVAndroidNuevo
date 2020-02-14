@@ -160,7 +160,8 @@ public class HelperParser {
                             //System.out.println("LATITUD: " + node.get(0) +" - LONGITUD: " + node.get(1));
                             loc[i] = new Localizacion(((Double) node.get(0)), (Double)node.get(1));
                         }else {
-                            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++" + node.get(0) + "+++++++++++++++++++++++++++++++++++++++");
+                            //System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++" + node.get(0) + "+++++++++++++++++++++++++++++++++++++++");
+                            loc[i]= new Localizacion(1.0,1.0);
                            // JSONArray node2 = node.getJSONArray(i);
 
                             //for (int j = 0; j < coordenadas.length();j++){
@@ -200,7 +201,7 @@ public class HelperParser {
 
 
             Ruta nuevoRuta = new Ruta(name,categoria,longitud,inicio,fnl,enp,colorFill,colorStroke,loc);
-            Log.d("HOLA", nuevoRuta.toString());
+            //Log.d("HOLA", nuevoRuta.toString());
             return nuevoRuta;
         } catch (JSONException e) {
             e.printStackTrace();
