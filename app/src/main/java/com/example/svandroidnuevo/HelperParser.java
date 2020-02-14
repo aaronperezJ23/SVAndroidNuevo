@@ -157,9 +157,10 @@ public class HelperParser {
                         //System.out.println(node.get(0).getClass().getSimpleName());
 
                         if(node.get(0).getClass().getSimpleName().equalsIgnoreCase("Double")){
-                            System.out.println("-" + node.get(0) + node.get(1));
+                            //System.out.println("LATITUD: " + node.get(0) +" - LONGITUD: " + node.get(1));
+                            loc[i] = new Localizacion(((Double) node.get(0)), (Double)node.get(1));
                         }else {
-                            //System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++" + node.get(0));
+                            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++" + node.get(0) + "+++++++++++++++++++++++++++++++++++++++");
                             //loc[i] = new Localizacion(node.getDouble(0), node.getDouble(1));
                             //JSONArray array = node.getJSONArray(0);
                             //for (int j = 0; j < array.length(); j++)
