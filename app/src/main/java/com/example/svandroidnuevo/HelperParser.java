@@ -161,6 +161,11 @@ public class HelperParser {
                             loc[i] = new Localizacion(((Double) node.get(0)), (Double)node.get(1));
                         }else {
                             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++" + node.get(0) + "+++++++++++++++++++++++++++++++++++++++");
+                           // JSONArray node2 = node.getJSONArray(i);
+
+                            //for (int j = 0; j < coordenadas.length();j++){
+
+                            //}
                             //loc[i] = new Localizacion(node.getDouble(0), node.getDouble(1));
                             //JSONArray array = node.getJSONArray(0);
                             //for (int j = 0; j < array.length(); j++)

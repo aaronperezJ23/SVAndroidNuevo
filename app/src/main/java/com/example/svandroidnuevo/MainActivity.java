@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG,String.valueOf(mRutas.isEmpty()));
                     for(int i = 0; i<mRutas.size();i++){
                         //Log.d("hola", response);
-                        //mCategorias[i]=(mRutas.get(i).getmCategoria());
+                        mCategorias[i]=(mRutas.get(i).getmCategoria());
                         //mInicio[i]=(mRutas.get(i).getmInicio());
                         //Log.d(TAG, mRutas.get(i).getmName());
                         //Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
@@ -226,19 +226,19 @@ public class MainActivity extends AppCompatActivity {
                         //Log.d(TAG, mRutas.get(i).getmENP());
 
                     }
-/*
+
                     Arrays.sort(mCategorias);
 
                     for (int i=0; i<mCategorias.length;i++){
                         Log.d(TAG,mCategorias[i]);
                     }
 
-                    Arrays.sort(mInicio);
+                    //Arrays.sort(mInicio);
 
-                    for (int i=0; i<mInicio.length;i++){
-                        Log.d(TAG,mInicio[i]);
-                    }
-*/
+                    //for (int i=0; i<mInicio.length;i++){
+                      //  Log.d(TAG,mInicio[i]);
+                    //}
+
                 }
             }
         });
