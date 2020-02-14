@@ -137,7 +137,7 @@ public class HelperParser {
 
 
             Ruta nuevoRuta = new Ruta(name,categoria,longitud,inicio,fnl,enp,colorFill,colorStroke);
-            Log.d("HOLA", nuevoRuta.toString());
+            //Log.d("HOLA", nuevoRuta.toString());
             return nuevoRuta;
         } catch (JSONException e) {
             e.printStackTrace();

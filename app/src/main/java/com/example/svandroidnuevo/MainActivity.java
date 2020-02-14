@@ -29,6 +29,9 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.net.ssl.SSLContext;
 
@@ -40,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private MyAdapter myadapter;
 
     private ArrayList<HelperParser.Ruta> mRutas;
-    private ArrayList<String> mCategorias;
+    private String[] mCategorias= new String[224];
+    private String[] mInicio= new String[224];
+    //private String[] mCategorias= new String[224];
 
 
     @Override
@@ -213,18 +218,26 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG,String.valueOf(mRutas.isEmpty()));
                     for(int i = 0; i<mRutas.size();i++){
                         //Log.d("hola", response);
-                        //mCategorias.set(i, mRutas.get(i).getmCategoria());
-
+                        mCategorias[i]=(mRutas.get(i).getmCategoria());
+                        mInicio[i]=(mRutas.get(i).getmInicio());
                         //Log.d(TAG, mRutas.get(i).getmName());
                         //Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
                         //Log.d(TAG, mRutas.get(i).getmCategoria());
-                        Log.d(TAG, mRutas.get(i).getmENP());
+                        //Log.d(TAG, mRutas.get(i).getmENP());
 
                     }
 
-                    //for (int i=0; i<mCategorias.size();i++){
-                      //  Log.d(TAG,mCategorias.get(i).toString());
-                    //}
+                    Arrays.sort(mCategorias);
+
+                    for (int i=0; i<mCategorias.length;i++){
+                        Log.d(TAG,mCategorias[i]);
+                    }
+
+                    Arrays.sort(mInicio);
+
+                    for (int i=0; i<mInicio.length;i++){
+                        Log.d(TAG,mInicio[i]);
+                    }
 
                 }
             }
