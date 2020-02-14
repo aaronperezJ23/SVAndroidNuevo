@@ -12,6 +12,32 @@ public class HelperParser {
 
     private final String TAG = getClass().getSimpleName();
 
+    public static class Localizacion{
+        public Double lat=null;
+        public Double lon=null;
+
+        public Double getLat() {
+            return lat;
+        }
+
+        public Double getLon() {
+            return lon;
+        }
+
+        public Localizacion(Double lat, Double lon){
+            this.lat=lat;
+            this.lon=lon;
+        }
+
+        @Override
+        public String toString() {
+            return "Localizacion{" +
+                    "lat=" + lat +
+                    ", lon=" + lon +
+                    '}';
+        }
+    }
+
     public class Ruta {
         private String mName;
         private String mCategoria;
@@ -23,7 +49,11 @@ public class HelperParser {
         private String mColorFill;
         private String mColorStroke;
 
-        public Ruta(String mName, String mCategoria, Integer mLongitud, String mInicio, String mFinal, String mENP, String mColorFill, String mColorStroke) {
+        private Localizacion[] mLocalizaciones;
+
+
+
+        public Ruta(String mName, String mCategoria, Integer mLongitud, String mInicio, String mFinal, String mENP, String mColorFill, String mColorStroke, Localizacion[] mLocalizaciones) {
             this.mName = mName;
             this.mCategoria = mCategoria;
             this.mLongitud = mLongitud;
@@ -32,6 +62,7 @@ public class HelperParser {
             this.mENP = mENP;
             this.mColorFill = mColorFill;
             this.mColorStroke = mColorStroke;
+            this.mLocalizaciones = mLocalizaciones;
         }
 
         @Override
@@ -45,6 +76,7 @@ public class HelperParser {
                     ", mENP='" + mENP + '\'' +
                     ", mColorFill='" + mColorFill + '\'' +
                     ", mColorStroke='" + mColorStroke + '\'' +
+                    ", mLocalizacion=" + mLocalizaciones.toString() +
                     '}';
         }
 
@@ -79,6 +111,9 @@ public class HelperParser {
         public String getmColorStroke() {
             return mColorStroke;
         }
+
+        public Localizacion[] getmLocalizacion(){ return mLocalizaciones; }
+
     }
 
     public ArrayList<Ruta> parseRutas(String content){
@@ -108,12 +143,23 @@ public class HelperParser {
         String name = "", categoria = "", inicio="", fnl="",
                 enp="", colorFill="", colorStroke="";
         Integer longitud = 0;
+        Localizacion[] loc = new Localizacion[10000];
 
         try {
 
             if(jsonData.has("geometry")){
                 JSONObject geo = jsonData.getJSONObject("geometry");
+                if(geo.has("coordinates")){
+                    JSONArray coordenadas = geo.getJSONArray("coordinates");
+                    for(int i = 0; i < coordenadas.length();i++){
+                        JSONArray node = coordenadas.getJSONArray(i);
+                        loc[i] = new Localizacion(node.getDouble(0), node.getDouble(1));
+                        //System.out.println(loc[i].toString());
+                        //System.out.println("Lat: " + node.getDouble(0) + " - Lon: " +node.getDouble(1));
 
+
+                    }
+                }
             }
             if(jsonData.has("properties")){
                 JSONObject proper = jsonData.getJSONObject("properties");
@@ -136,8 +182,8 @@ public class HelperParser {
             }
 
 
-            Ruta nuevoRuta = new Ruta(name,categoria,longitud,inicio,fnl,enp,colorFill,colorStroke);
-            //Log.d("HOLA", nuevoRuta.toString());
+            Ruta nuevoRuta = new Ruta(name,categoria,longitud,inicio,fnl,enp,colorFill,colorStroke,loc);
+            Log.d("HOLA", nuevoRuta.toString());
             return nuevoRuta;
         } catch (JSONException e) {
             e.printStackTrace();

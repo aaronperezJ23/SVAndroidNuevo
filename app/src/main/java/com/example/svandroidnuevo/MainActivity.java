@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
                         //Log.d(TAG, mRutas.get(i).getmENP());
 
                     }
-
+/*
                     Arrays.sort(mCategorias);
 
                     for (int i=0; i<mCategorias.length;i++){
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int i=0; i<mInicio.length;i++){
                         Log.d(TAG,mInicio[i]);
                     }
-
+*/
                 }
             }
         });
