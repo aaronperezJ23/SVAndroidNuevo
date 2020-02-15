@@ -7,6 +7,7 @@ import androidx.core.view.MenuItemCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +21,16 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mklimek.sslutilsandroid.SslUtils;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.net.ssl.SSLContext;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -34,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
+
+        //TestSSL();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -164,5 +176,36 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"Opcion AYUDA", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void TestSSL () {
+
+        OkHttpClient client = new OkHttpClient();
+        SSLContext sslContext = SslUtils.getSslContextForCertificateFile(this, "comunidad-madrid.pem");
+        client.setSslSocketFactory(sslContext.getSocketFactory());
+
+
+        Request request = new Request.Builder()
+                .url("https://datos.comunidad.madrid/catalogo/dataset/66784709-f106-4906-bf37-8c46c6033f54/resource/d37614e5-22c1-41b6-9334-66e7ee61975c/download/spacmsendasnaturaleza.json")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+
+                Log.e(TAG, request.toString());
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    Log.d(TAG, response.body().string());
+                }
+            }
+        });
+
     }
 }

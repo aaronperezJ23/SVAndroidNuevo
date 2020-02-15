@@ -3,15 +3,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="400dp" />
     <RelativeLayout
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="0">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/textNom"
             android:layout_width="wrap_content"
@@ -21,7 +20,6 @@
             android:layout_gravity="center_vertical"
             android:text="@string/nombre"
             android:textSize="25dp"/>
-
         <TextView
             android:id="@+id/textKms"
             android:layout_width="wrap_content"
@@ -36,7 +34,7 @@
             android:id="@+id/textValoracion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:textColor="#333"
             android:layout_gravity="center_vertical"
             android:layout_below="@id/textKms"
@@ -46,7 +44,7 @@
             android:id="@+id/textCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:textColor="#333"
             android:layout_gravity="center_vertical"
             android:layout_below="@id/textValoracion"
@@ -56,7 +54,7 @@
             android:id="@+id/textInicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:textColor="#333"
             android:layout_gravity="center_vertical"
             android:layout_below="@id/textCategoria"
@@ -66,13 +64,26 @@
             android:id="@+id/textFin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:textColor="#333"
             android:layout_gravity="center_vertical"
             android:layout_below="@id/textInicio"
             android:textSize="20dp"
             android:text="@string/fin"/>
-
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="0">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/iniciar_ruta" />
+    </RelativeLayout>
+
+
 
 </LinearLayout>
