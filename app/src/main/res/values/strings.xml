@@ -16,4 +16,5 @@
     <string name="from">from</string>
     <string name="perezas">Perezas</string>
     <string name="Titulo">Sendas Verdes</string>
+    <string name="OPEN_WEATHER_MAP_API_KEY">b61a80349d58cbfb2a5a60638ca6e87b</string>
 </resources>

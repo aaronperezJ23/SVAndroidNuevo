@@ -22,6 +22,11 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kwabenaberko.openweathermaplib.constants.Lang;
+import com.kwabenaberko.openweathermaplib.constants.Units;
+import com.kwabenaberko.openweathermaplib.implementation.OpenWeatherMapHelper;
+import com.kwabenaberko.openweathermaplib.implementation.callbacks.CurrentWeatherCallback;
+import com.kwabenaberko.openweathermaplib.models.currentweather.CurrentWeather;
 import com.mklimek.sslutilsandroid.SslUtils;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -54,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme);
 
         TestSSL();
+        weatherInfo();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -149,9 +155,6 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 imageView.setImageResource(R.drawable.ic_launcher_background);
             }
-
-
-
 
             return v;
         }
@@ -323,4 +326,31 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    public void weatherInfo(){
+
+        OpenWeatherMapHelper helper = new OpenWeatherMapHelper(getString(R.string.OPEN_WEATHER_MAP_API_KEY));
+
+        helper.setUnits(Units.METRIC);
+
+        helper.setLang(Lang.SPANISH);
+
+        helper.getCurrentWeatherByGeoCoordinates(5.6037, 0.1870, new CurrentWeatherCallback() {
+            @Override
+            public void onSuccess(CurrentWeather currentWeather) {
+                Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
+                        +"Weather Description: " + currentWeather.getWeather().get(0).getDescription() + "\n"
+                        +"Temperature: " + currentWeather.getMain().getTempMax()+"\n"
+                        +"Wind Speed: " + currentWeather.getWind().getSpeed() + "\n"
+                        +"City, Country: " + currentWeather.getName() + ", " + currentWeather.getSys().getCountry()
+                );
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.v(TAG, throwable.getMessage());
+            }
+        });
+    }
+
 }
