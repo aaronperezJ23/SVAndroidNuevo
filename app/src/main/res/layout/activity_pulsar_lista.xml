@@ -84,6 +84,4 @@
             android:text="@string/iniciar_ruta" />
     </RelativeLayout>
 
-
-
 </LinearLayout>

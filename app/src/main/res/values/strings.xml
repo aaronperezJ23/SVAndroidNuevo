@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SVAndroidNuevo</string>
     <string name="sendas_verdes">SENDAS\nVERDES</string>
-    <string name="ordenar">Ordenar</string>
+    <string name="ordenar">Ordenar por:</string>
     <string name="fav">Favoritos</string>
     <string name="ajustes">Ajustes</string>
     <string name="ayuda">Ayuda</string>
@@ -17,4 +17,5 @@
     <string name="perezas">Perezas</string>
     <string name="Titulo">Sendas Verdes</string>
     <string name="iniciar_ruta">Iniciar Ruta</string>
+    <string name="longitud">Longitud</string>
 </resources>
