@@ -2,7 +2,7 @@
 
 Aplicación que permite ver y guardar las rutas de senderismo de la Comunidad de Madrid.
 
-Consultar API con geolocalizacion actual.
+**** Consultar API con geolocalizacion actual.
 
 API rutas verdes, API tiempo.
 
