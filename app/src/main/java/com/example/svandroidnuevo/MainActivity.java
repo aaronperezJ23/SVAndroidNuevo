@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             return v;
         }
     }
-    
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
