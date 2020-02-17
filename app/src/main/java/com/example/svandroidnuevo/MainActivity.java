@@ -2,11 +2,19 @@ package com.example.svandroidnuevo;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,11 +24,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kwabenaberko.openweathermaplib.constants.Lang;
+import com.kwabenaberko.openweathermaplib.constants.Units;
+import com.kwabenaberko.openweathermaplib.implementation.OpenWeatherMapHelper;
+import com.kwabenaberko.openweathermaplib.implementation.callbacks.CurrentWeatherCallback;
+import com.kwabenaberko.openweathermaplib.models.currentweather.CurrentWeather;
 import com.mklimek.sslutilsandroid.SslUtils;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -28,23 +42,27 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.Comparator;
 
 import javax.net.ssl.SSLContext;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener {
     private final String TAG = getClass().getSimpleName();
     private ArrayList<String> mNames;
-    private  boolean mListSimple = false;
+    private boolean mListSimple = false;
     private ListView lv = null;
     private MyAdapter myadapter;
+    private LocationManager mLocManager;
+    private Location mCurrentLocation;
+    private static final Integer MY_PERMISSIONS_GPS = 1;
 
     private ArrayList<HelperParser.Ruta> mRutas;
-    private String[] mCategorias= new String[224];
-    private String[] mInicio= new String[224];
+    private String[] mCategorias = new String[224];
+    private String[] mInicio = new String[224];
 
 
 
@@ -53,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme);
 
         TestSSL();
+        weatherInfo();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -70,20 +89,18 @@ public class MainActivity extends AppCompatActivity {
         mNames.add("Motorola");
         mNames.add("Dell");
 
-
-
-        if(mListSimple){
+        if (mListSimple) {
             ArrayAdapter<String> adapter =
-                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mNames);
+                    new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mNames);
 
             lv.setAdapter(adapter);
 
-        }else{
+        } else {
             //myadapter = new MyAdapter(this, R.layout.descripcion_lista, mRutas);
             //lv.setAdapter(myadapter);
         }
         //SI PULSAS QUE SALDRA UN MENSAJITO
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
@@ -92,6 +109,68 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Has pulsado: " + mNames.get(position), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(PackageManager.PERMISSION_GRANTED !=
+                ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)){
+            ActivityCompat.requestPermissions(MainActivity.this, new  String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_GPS);
+        }else{
+            Toast.makeText(getApplicationContext(), "[LOCATION] Permission granted in the past!", Toast.LENGTH_SHORT).show();
+            startLocation();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String[] permissions,int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] ==  PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_LONG).show();
+                    startLocation();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Permission denied by used", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+        }
+    }
+
+    @SuppressWarnings({"MissingPermission"})
+    private  void startLocation(){
+
+        mLocManager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //LO QUE HACE ES LLEVARTE  A LOS SETTINGS PARA QUE ACTIVES EL GPS
+        if(! mLocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Intent callGPSSettingIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(callGPSSettingIntent);
+        }else{
+            mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1,300,this);
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
 
     }
 
@@ -124,17 +203,28 @@ public class MainActivity extends AppCompatActivity {
         public View getView(int i, View view, ViewGroup ViewGroup) {
             //Copiamos la vista
             View v = view;
-
             LayoutInflater layoutInflater = LayoutInflater.from(this.context);
-
 
             v = layoutInflater.inflate(R.layout.descripcion_lista, null);
             TextView textView1 = (TextView) v.findViewById(R.id.textNom);
             textView1.setText(rutas.get(i).getmName());
             TextView textView2 = (TextView) v.findViewById(R.id.textKms);
-            textView2.setText(rutas.get(i).getmLongitud().toString());
+            textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
             TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
             textView3.setText(rutas.get(i).getmCategoria());
+            ImageView imageView = v.findViewById(R.id.imageView2);
+
+            if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
+                imageView.setImageResource(R.drawable.federacionmontana);
+            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Rutas por la Red de Vías Pecuarias")){
+                imageView.setImageResource(R.drawable.vp);
+            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Rutas por la Red de Espacios Naturales Protegidos")){
+                imageView.setImageResource(R.drawable.seprona);
+            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Sendas Verdes de Madrid")){
+                imageView.setImageResource(R.drawable.unnamed);
+            }else{
+                imageView.setImageResource(R.drawable.ic_launcher_background);
+            }
 
             return v;
         }
@@ -203,21 +293,25 @@ public class MainActivity extends AppCompatActivity {
                 searchView.setIconified(true);
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
-
         });
         return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.ordenar){
-            Toast.makeText(this,"Opcion ORDENAR", Toast.LENGTH_SHORT).show();
+        }else if(id == R.id.nombre){
+            Collections.sort(mRutas, new PulsarLista.cusComparatorNom());
+        }else if(id == R.id.longitud){
+            Collections.sort(mRutas, new PulsarLista.cusComparatorLong());
+        }else if(id == R.id.categoria){
+            Collections.sort(mRutas, new PulsarLista.cusComparatorCat());
         }else if(id == R.id.fav){
             Toast.makeText(this,"Opcion FAVORITO", Toast.LENGTH_SHORT).show();
         }else if(id == R.id.ajustes){
@@ -274,17 +368,17 @@ public class MainActivity extends AppCompatActivity {
 
                     Arrays.sort(mCategorias);
 
-                    //for (int i=0; i<mCategorias.length;i++){
-                      //  Log.d(TAG,mCategorias[i]);
-                    //}
+                    for (int i=0; i<mCategorias.length;i++){
+                          Log.d(TAG,mCategorias[i]);
+                    }
 
-                    for (HelperParser.Ruta mRuta : mRutas) {
+                    /*for (HelperParser.Ruta mRuta : mRutas) {
                         HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
                         for (HelperParser.Localizacion localizacion1 : localizacion) {
                             //System.out.println(mRuta.getmName() + "---" + localizacion1.getLat());
 
                         }
-                    }
+                    }*/
                     //Arrays.sort(mInicio);
 
                     //for (int i=0; i<mInicio.length;i++){
@@ -306,4 +400,31 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    public void weatherInfo(){
+
+        OpenWeatherMapHelper helper = new OpenWeatherMapHelper(getString(R.string.OPEN_WEATHER_MAP_API_KEY));
+
+        helper.setUnits(Units.METRIC);
+
+        helper.setLang(Lang.SPANISH);
+
+        helper.getCurrentWeatherByGeoCoordinates(5.6037, 0.1870, new CurrentWeatherCallback() {
+            @Override
+            public void onSuccess(CurrentWeather currentWeather) {
+                Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
+                        +"Weather Description: " + currentWeather.getWeather().get(0).getDescription() + "\n"
+                        +"Temperature: " + currentWeather.getMain().getTempMax()+"\n"
+                        +"Wind Speed: " + currentWeather.getWind().getSpeed() + "\n"
+                        +"City, Country: " + currentWeather.getName() + ", " + currentWeather.getSys().getCountry()
+                );
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.v(TAG, throwable.getMessage());
+            }
+        });
+    }
+
 }
