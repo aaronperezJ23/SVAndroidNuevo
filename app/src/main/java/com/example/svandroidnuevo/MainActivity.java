@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<HelperParser.Ruta> mRutas;
     private String[] mCategorias= new String[224];
-    private String[] mInicio= new String[224];
+    private String[] mInicio= new String[224];:
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
