@@ -229,52 +229,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             return v;
         }
     }
-
- /*   public class MyAdapter extends BaseAdapter {
-
-        private Context context;
-        private  int layout;
-        private ArrayList<String> names;
-
-
-        public MyAdapter(Context context, int layout, ArrayList<String> names) {
-            this.context = context;
-            this.layout = layout;
-            this.names = names;
-        }
-
-        @Override
-        public int getCount() {return this.names.size();}
-
-        @Override
-        public Object getItem(int i) {
-            return this.names.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup ViewGroup) {
-            //Copiamos la vista
-            View v = view;
-
-            LayoutInflater layoutInflater = LayoutInflater.from(this.context);
-
-
-            v = layoutInflater.inflate(R.layout.descripcion_lista, null);
-            TextView textView1 = (TextView) v.findViewById(R.id.textNom);
-            textView1.setText(names.get(i));
-            TextView textView2 = (TextView) v.findViewById(R.id.textKms);
-            textView2.setText(names.get(i));
-            TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
-            textView3.setText(names.get(i));
-
-            return v;
-        }
-    }*/
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
