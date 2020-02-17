@@ -8,7 +8,7 @@ API rutas verdes, API tiempo.
 
 **** API altitud. Añadir perfil de la ruta
 
-Distancia y ruta (shared prefereneces). Singleton para guardar faboritos y mRutas
+Distancia y ruta (shared prefereneces). Singleton para guardar favoritos y mRutas
 
 Rutas favorirtos (lista)
 
