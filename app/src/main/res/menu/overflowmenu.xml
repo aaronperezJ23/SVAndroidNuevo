@@ -9,7 +9,13 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom" />
 
-    <item android:id="@+id/ordenar" android:title="@string/ordenar" />
+    <item android:id="@+id/ordenar" android:title="@string/ordenar">
+        <menu>
+            <item android:id="@+id/nombre" android:title="@string/nombre"/>
+            <item android:id="@+id/longitud" android:title="@string/longitud"/>
+            <item android:id="@+id/categoria" android:title="@string/categoria"/>
+        </menu>
+    </item>
     <item android:id="@+id/fav" android:title="@string/fav" />
     <item android:id="@+id/ajustes" android:title="@string/ajustes" />
     <item android:id="@+id/ayuda" android:title="@string/ayuda" />
