@@ -337,7 +337,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
                         for (HelperParser.Localizacion localizacion1 : localizacion) {
                             //if(localizacion1.getLon()!=Double.NaN) {
-                                System.out.println(mRuta.getmName() + " - " + localizacion1.getLat() + " - " + localizacion1.getLon());
+                                //System.out.println(mRuta.getmName() + " - " + localizacion1.getLat() + " - " + localizacion1.getLon());
+                                double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(),localizacion1.getLon()));
+                            System.out.println(mRuta.getmName() + ", Latitud: " + loc[0] + ", Longitud: " + loc[1]);
                                 break;
                             //}
                         }
