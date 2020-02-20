@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private ArrayList<HelperParser.Ruta> mRutas;
     private String[] mCategorias = new String[224];
     private String[] mInicio = new String[224];
+
+    private ProgressDialog mPd;
 
 
 
@@ -288,6 +291,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 .url("https://datos.comunidad.madrid/catalogo/dataset/66784709-f106-4906-bf37-8c46c6033f54/resource/d37614e5-22c1-41b6-9334-66e7ee61975c/download/spacmsendasnaturaleza.json")
                 .build();
 
+        mPd = new ProgressDialog(MainActivity.this);
+        mPd.setTitle("Adquiriendo datos...");
+        mPd.show();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -348,6 +354,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         }
                     });
 
+                    mPd.dismiss();
 
 
                 }
