@@ -327,18 +327,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     }
 
-                    Arrays.sort(mCategorias);
+                    //Arrays.sort(mCategorias);
 
-                    for (int i=0; i<mCategorias.length;i++){
-                          Log.d(TAG,mCategorias[i]);
-                    }
+                    //for (int i=0; i<mCategorias.length;i++){
+                      //    Log.d(TAG,mCategorias[i]);
+                    //}
 
                     for (HelperParser.Ruta mRuta : mRutas) {
                         HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
                         for (HelperParser.Localizacion localizacion1 : localizacion) {
-                            System.out.println(mRuta.getmName() + " - " + localizacion1.getLat() + " - " + localizacion1.getLon());
-                                    break;
-
+                            //if(localizacion1.getLon()!=Double.NaN) {
+                                System.out.println(mRuta.getmName() + " - " + localizacion1.getLat() + " - " + localizacion1.getLon());
+                                break;
+                            //}
                         }
                     }
                     //Arrays.sort(mInicio);

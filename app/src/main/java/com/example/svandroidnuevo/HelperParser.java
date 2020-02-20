@@ -159,7 +159,7 @@ public class HelperParser {
                 JSONObject geo = jsonData.getJSONObject("geometry");
                 if(geo.has("coordinates")){
                     JSONArray coordenadas = geo.getJSONArray("coordinates");
-                    Log.d(TAG, String.valueOf(coordenadas.length()));
+                    //Log.d(TAG, String.valueOf(coordenadas.length()));
                     loc = new Localizacion[coordenadas.length()];
                     for(int i = 0; i < coordenadas.length();i++){
                         JSONArray node = coordenadas.getJSONArray(i);
@@ -171,7 +171,16 @@ public class HelperParser {
                             loc[i] = new Localizacion(node.optDouble(0),node.optDouble(1));
 
                         }else{
-                            loc[i] = new Localizacion(0.0,0.0);
+                            // AQUI VA OTRO ARRAY
+/*
+                            for(int j=0;j<node.length();j++){
+                                JSONArray nodeSon = node.getJSONArray(i);
+                                if(nodeSon.optDouble(0)!=Double.NaN && nodeSon.optDouble(1)!=Double.NaN) {
+                                    Log.d(TAG, String.valueOf(nodeSon.optDouble(0)));
+                                    loc[i] = new Localizacion(nodeSon.optDouble(0),nodeSon.optDouble(1));
+
+                                }
+                            }*/
                         }
 
                     }
