@@ -333,13 +333,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                           Log.d(TAG,mCategorias[i]);
                     }
 
-                    /*for (HelperParser.Ruta mRuta : mRutas) {
+                    for (HelperParser.Ruta mRuta : mRutas) {
                         HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
                         for (HelperParser.Localizacion localizacion1 : localizacion) {
-                            //System.out.println(mRuta.getmName() + "---" + localizacion1.getLat());
+                            System.out.println(mRuta.getmName() + " - " + localizacion1.getLat() + " - " + localizacion1.getLon());
+                                    break;
 
                         }
-                    }*/
+                    }
                     //Arrays.sort(mInicio);
 
                     //for (int i=0; i<mInicio.length;i++){
