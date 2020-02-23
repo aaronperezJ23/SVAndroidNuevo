@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private ProgressDialog mPd;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -313,47 +312,29 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     throw new IOException("Unexpected code " + response);
                 } else {
 
-                    //Log.d(TAG, response.body().string());
                     Log.d(TAG, response.toString());
 
                     HelperParser myparser = new HelperParser();
                     mRutas = myparser.parseRutas(response.body().string());
                     Log.d(TAG,String.valueOf(mRutas.isEmpty()));
                     for(int i = 0; i<mRutas.size();i++){
-                        //Log.d("hola", response);
                         mCategorias[i]=(mRutas.get(i).getmCategoria());
-                        //mLocalizaciones.add(mRutas.get(i).getmLocalizacion());
-                        //mInicio[i]=(mRutas.get(i).getmInicio());
-                        //Log.d(TAG, mRutas.get(i).getmName());
-                        //Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
-                        //Log.d(TAG, mRutas.get(i).getmCategoria());
-                        //Log.d(TAG, mRutas.get(i).getmENP());
-
                     }
-
-                    //Arrays.sort(mCategorias);
-
-                    //for (int i=0; i<mCategorias.length;i++){
-                      //    Log.d(TAG,mCategorias[i]);
-                    //}
 
                     for (HelperParser.Ruta mRuta : mRutas) {
                         HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
                         for (HelperParser.Localizacion localizacion1 : localizacion) {
-                            //if(localizacion1.getLon()!=Double.NaN) {
-                                //System.out.println(mRuta.getmName() + " - " + localizacion1.getLat() + " - " + localizacion1.getLon());
-                                double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(),localizacion1.getLon()));
-                                System.out.println(mRuta.getmName() + ", Latitud: " + loc[0] + ", Longitud: " + loc[1]);
-                                weatherInfo(loc[0], loc[1]);
-                                break;
-                            //}
+                            double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(),localizacion1.getLon()));
+                            //System.out.println(mRuta.getmName() + ", Latitud: " + loc[0] + ", Longitud: " + loc[1]);
+                            weatherInfo(loc[0], loc[1], mRuta);
+
+                            break;
                         }
                     }
-                    //Arrays.sort(mInicio);
 
-                    //for (int i=0; i<mInicio.length;i++){
-                      //  Log.d(TAG,mInicio[i]);
-                    //}
+                    for (HelperParser.Ruta mRuta : mRutas) {
+                        System.out.println(mRuta.getmTemperatura());
+                    }
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -365,14 +346,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     mPd.dismiss();
 
-
                 }
             }
         });
 
     }
 
-    public void weatherInfo(double lat, double lon){
+    private void weatherInfo(double lat, double lon, final HelperParser.Ruta ruta){
+
 
         OpenWeatherMapHelper helper = new OpenWeatherMapHelper(getString(R.string.OPEN_WEATHER_MAP_API_KEY));
 
@@ -383,13 +364,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         helper.getCurrentWeatherByGeoCoordinates(lat,  lon, new CurrentWeatherCallback() {
             @Override
             public void onSuccess(CurrentWeather currentWeather) {
+                //ruta.setmTemperatura(currentWeather.getMain().getTempMax());
+
                 Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
                         +"Weather Description: " + currentWeather.getWeather().get(0).getDescription() + "\n"
                         +"Temperature: " + currentWeather.getMain().getTempMax()+"\n"
                         +"Wind Speed: " + currentWeather.getWind().getSpeed() + "\n"
                         +"City, Country: " + currentWeather.getName() + ", " + currentWeather.getSys().getCountry()
                 );
-
 
                 //Log.d(TAG, "SUCCES");
             }
@@ -398,7 +380,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             public void onFailure(Throwable throwable) {
                 Log.v(TAG, throwable.getMessage());
             }
+
+
         });
+
+
     }
 
 }

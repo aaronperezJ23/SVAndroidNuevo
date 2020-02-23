@@ -2,6 +2,8 @@ package com.example.svandroidnuevo;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +61,7 @@ public class HelperParser {
 
         public Localizacion[] mLocalizaciones;
 
-
+        public double mTemperatura;
 
         public Ruta(String mName, String mCategoria, Integer mLongitud, String mInicio, String mFinal, String mENP, String mColorFill, String mColorStroke, Localizacion[] mLocalizaciones) {
             this.mName = mName;
@@ -71,6 +73,7 @@ public class HelperParser {
             this.mColorFill = mColorFill;
             this.mColorStroke = mColorStroke;
             this.mLocalizaciones = mLocalizaciones;
+
         }
 
         @Override
@@ -122,6 +125,13 @@ public class HelperParser {
 
         public Localizacion[] getmLocalizacion(){ return mLocalizaciones; }
 
+        public void setmTemperatura(double mTemperatura) {
+            this.mTemperatura = mTemperatura;
+        }
+
+        public double getmTemperatura() {
+            return mTemperatura;
+        }
     }
 
     public ArrayList<Ruta> parseRutas(String content){
@@ -205,4 +215,5 @@ public class HelperParser {
         }
 
     }
+
 }
