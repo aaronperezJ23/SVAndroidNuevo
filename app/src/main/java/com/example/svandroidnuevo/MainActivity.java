@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         setTheme(R.style.AppTheme);
 
         TestSSL();
-        weatherInfo();
+        //weatherInfo();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -212,12 +212,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             TextView textView1 = (TextView) v.findViewById(R.id.textNom);
             textView1.setText(rutas.get(i).getmName());
             TextView textView2 = (TextView) v.findViewById(R.id.textKms);
-            textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
+            //textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
+
+            double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(rutas.get(i).mLocalizaciones[0].getLat(),rutas.get(i).mLocalizaciones[0].getLat()));
+            textView2.setText("Latitud: " + loc[0] + ", Longitud: " + loc[1]);
+
             TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
             textView3.setText(rutas.get(i).getmCategoria());
             ImageView imageView = v.findViewById(R.id.imageView2);
 
-            if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
+            /*if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
                 imageView.setImageResource(R.drawable.federacionmontana);
             }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Rutas por la Red de Vías Pecuarias")){
                 imageView.setImageResource(R.drawable.vp);
@@ -227,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 imageView.setImageResource(R.drawable.unnamed);
             }else{
                 imageView.setImageResource(R.drawable.ic_launcher_background);
-            }
+            }*/
 
             return v;
         }
@@ -339,7 +343,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             //if(localizacion1.getLon()!=Double.NaN) {
                                 //System.out.println(mRuta.getmName() + " - " + localizacion1.getLat() + " - " + localizacion1.getLon());
                                 double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(),localizacion1.getLon()));
-                            System.out.println(mRuta.getmName() + ", Latitud: " + loc[0] + ", Longitud: " + loc[1]);
+                                System.out.println(mRuta.getmName() + ", Latitud: " + loc[0] + ", Longitud: " + loc[1]);
+                                weatherInfo(loc[0], loc[1]);
                                 break;
                             //}
                         }
@@ -367,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     }
 
-    public void weatherInfo(){
+    public void weatherInfo(double lat, double lon){
 
         OpenWeatherMapHelper helper = new OpenWeatherMapHelper(getString(R.string.OPEN_WEATHER_MAP_API_KEY));
 
@@ -375,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         helper.setLang(Lang.SPANISH);
 
-        helper.getCurrentWeatherByGeoCoordinates(5.6037, 0.1870, new CurrentWeatherCallback() {
+        helper.getCurrentWeatherByGeoCoordinates(lat,  lon, new CurrentWeatherCallback() {
             @Override
             public void onSuccess(CurrentWeather currentWeather) {
                 Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
@@ -384,6 +389,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         +"Wind Speed: " + currentWeather.getWind().getSpeed() + "\n"
                         +"City, Country: " + currentWeather.getName() + ", " + currentWeather.getSys().getCountry()
                 );
+
+
+                //Log.d(TAG, "SUCCES");
             }
 
             @Override

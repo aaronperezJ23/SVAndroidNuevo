@@ -57,7 +57,7 @@ public class HelperParser {
         private String mColorFill;
         private String mColorStroke;
 
-        private Localizacion[] mLocalizaciones;
+        public Localizacion[] mLocalizaciones;
 
 
 
