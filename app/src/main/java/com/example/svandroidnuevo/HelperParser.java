@@ -164,25 +164,13 @@ public class HelperParser {
                     for(int i = 0; i < coordenadas.length();i++){
                         JSONArray node = coordenadas.getJSONArray(i);
 
-                        //if(node.optDouble(0)!=Double.NaN && node.optDouble(1)!=Double.NaN) {
-                            //Log.d(TAG, String.valueOf(node.optDouble(0)));
-                            //Log.d(TAG, String.valueOf(node.optDouble(1)));
-
                             loc[i] = new Localizacion(node.optDouble(0),node.optDouble(1));
+                             if(node.optJSONArray(i)!=null) {
+                                 for (int j = 0; j < node.optJSONArray(i).length(); j++) {
+                                     loc[i] = new Localizacion(node.optJSONArray(j).optDouble(0), node.optJSONArray(j).optDouble(1));
+                                 }
+                             }
 
-                        //}else{
-                            // AQUI VA OTRO ARRAY
-                          //  System.out.println("NADA?");
-                            //Log.d("HOOLA",String.valueOf(node.optJSONArray(i)));
-                            /*for(int j=0;j<node.length();j++){
-                                JSONArray nodeSon = node.getJSONArray(i);
-                                //if(nodeSon.optDouble(0)!=Double.NaN && nodeSon.optDouble(1)!=Double.NaN) {
-                                    Log.d(TAG, String.valueOf(nodeSon.optDouble(0)));
-                                    //loc[i] = new Localizacion(nodeSon.optDouble(0), nodeSon.optDouble(1));
-
-                                //}
-                            }*/
-                        //}
 
                     }
                 }
