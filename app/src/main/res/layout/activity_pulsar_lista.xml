@@ -30,16 +30,7 @@
             android:layout_below="@id/textNom"
             android:text="@string/kilometros"
             android:textSize="20dp"/>
-        <TextView
-            android:id="@+id/textValoracion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:textColor="#333"
-            android:layout_gravity="center_vertical"
-            android:layout_below="@id/textKms"
-            android:textSize="20dp"
-            android:text="@string/valoracion"/>
+
         <TextView
             android:id="@+id/textCategoria"
             android:layout_width="wrap_content"
@@ -47,7 +38,7 @@
             android:layout_weight="0"
             android:textColor="#333"
             android:layout_gravity="center_vertical"
-            android:layout_below="@id/textValoracion"
+            android:layout_below="@id/textKms"
             android:textSize="20dp"
             android:text="@string/categoria"/>
         <TextView
@@ -81,7 +72,9 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/iniciar_ruta" />
+            android:text="@string/iniciar_ruta"
+            android:id="@+id/botonIniciar"/>
+
     </RelativeLayout>
 
 </LinearLayout>

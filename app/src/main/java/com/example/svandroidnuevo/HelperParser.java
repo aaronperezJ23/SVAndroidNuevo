@@ -1,5 +1,7 @@
 package com.example.svandroidnuevo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -8,13 +10,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class HelperParser {
+public class HelperParser implements Serializable {
 
     private final String TAG = getClass().getSimpleName();
 
-    public static class Localizacion{
+    public static class Localizacion implements Serializable{
         public Double lat;
         public Double lon;
 
@@ -48,7 +51,7 @@ public class HelperParser {
         }
     }
 
-    public class Ruta {
+    public class Ruta implements Serializable {
         private String mName;
         private String mCategoria;
         private Integer mLongitud;
@@ -132,6 +135,8 @@ public class HelperParser {
         public double getmTemperatura() {
             return mTemperatura;
         }
+
+
     }
 
     public ArrayList<Ruta> parseRutas(String content){

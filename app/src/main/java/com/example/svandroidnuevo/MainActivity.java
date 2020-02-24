@@ -52,6 +52,7 @@ import java.util.Comparator;
 import javax.net.ssl.SSLContext;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
+
     private final String TAG = getClass().getSimpleName();
     private ArrayList<String> mNames;
     private boolean mListSimple = false;
@@ -61,12 +62,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private Location mCurrentLocation;
     private static final Integer MY_PERMISSIONS_GPS = 1;
 
-    private ArrayList<HelperParser.Ruta> mRutas;
+    public static ArrayList<HelperParser.Ruta> mRutas;
     private String[] mCategorias = new String[224];
     private String[] mInicio = new String[224];
 
     private ProgressDialog mPd;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +107,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
                 Intent intent = new Intent(MainActivity.this, PulsarLista.class);
+                HelperParser.Ruta rutita = mRutas.get(position);
+                intent.putExtra("rutaActual", rutita);
                 startActivity(intent);
+
                 //Toast.makeText(MainActivity.this, "Has pulsado: " + mNames.get(position), Toast.LENGTH_LONG).show();
             }
         });
@@ -220,17 +223,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             textView3.setText(rutas.get(i).getmCategoria());
             ImageView imageView = v.findViewById(R.id.imageView2);
 
-            /*if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
+            if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
                 imageView.setImageResource(R.drawable.federacionmontana);
-            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Rutas por la Red de Vías Pecuarias")){
+            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("RutasSingleton por la Red de Vías Pecuarias")){
                 imageView.setImageResource(R.drawable.vp);
-            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Rutas por la Red de Espacios Naturales Protegidos")){
+            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("RutasSingleton por la Red de Espacios Naturales Protegidos")){
                 imageView.setImageResource(R.drawable.seprona);
             }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Sendas Verdes de Madrid")){
                 imageView.setImageResource(R.drawable.unnamed);
             }else{
                 imageView.setImageResource(R.drawable.ic_launcher_background);
-            }*/
+            }
 
             return v;
         }
@@ -261,7 +264,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         });
         return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -327,7 +329,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(),localizacion1.getLon()));
                             //System.out.println(mRuta.getmName() + ", Latitud: " + loc[0] + ", Longitud: " + loc[1]);
                             weatherInfo(loc[0], loc[1], mRuta);
-
+                            try {
+                                Thread.sleep(40);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         }
                     }
@@ -364,14 +370,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         helper.getCurrentWeatherByGeoCoordinates(lat,  lon, new CurrentWeatherCallback() {
             @Override
             public void onSuccess(CurrentWeather currentWeather) {
-                //ruta.setmTemperatura(currentWeather.getMain().getTempMax());
+                ruta.setmTemperatura(currentWeather.getMain().getTempMax());
 
-                Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
+                /*Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
                         +"Weather Description: " + currentWeather.getWeather().get(0).getDescription() + "\n"
                         +"Temperature: " + currentWeather.getMain().getTempMax()+"\n"
                         +"Wind Speed: " + currentWeather.getWind().getSpeed() + "\n"
                         +"City, Country: " + currentWeather.getName() + ", " + currentWeather.getSys().getCountry()
-                );
+                );*/
 
                 //Log.d(TAG, "SUCCES");
             }
