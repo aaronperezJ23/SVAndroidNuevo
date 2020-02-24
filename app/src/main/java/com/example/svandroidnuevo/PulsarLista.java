@@ -45,19 +45,20 @@ public class PulsarLista extends AppCompatActivity {
         TextView textView1 = (TextView) findViewById(R.id.textNom);
         textView1.setText(mRutaActual.getmName());
         TextView textView2 = (TextView) findViewById(R.id.textKms);
-        textView2.setText(mRutaActual.getmLongitud().toString() + " km");
-
-        //double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(mRuta.mLocalizaciones[0].getLat(),mRuta.mLocalizaciones[0].getLat()));
-        //textView2.setText("Latitud: " + loc[0] + ", Longitud: " + loc[1]);
+        textView2.setText("Longitud: " + mRutaActual.getmLongitud().toString() + " km");
 
         TextView textView3 = (TextView) findViewById(R.id.textCategoria);
-        textView3.setText(mRutaActual.getmCategoria());
+        textView3.setText("Categoría: " + mRutaActual.getmCategoria());
 
         TextView textView4 = (TextView) findViewById(R.id.textInicio);
-        textView4.setText(mRutaActual.getmInicio());
+        textView4.setText("Inicio: " + mRutaActual.getmInicio());
 
         TextView textView5 = (TextView) findViewById(R.id.textFin);
-        textView5.setText(mRutaActual.getmFinal());
+        textView5.setText("Final: " + mRutaActual.getmFinal());
+
+        TextView textView6 = (TextView) findViewById(R.id.textTemp);
+        textView6.setText("Temperatura: " + String.valueOf(mRutaActual.getmTemperatura()) + "º");
+
 
     }
 

@@ -3,77 +3,94 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <RelativeLayout
-        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="398dp"
+        android:layout_margin="5dp"
         android:layout_weight="0">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/textNom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:textColor="#333"
             android:layout_gravity="center_vertical"
+            android:layout_weight="0"
             android:text="@string/nombre"
-            android:textSize="25dp"/>
+            android:textColor="#333"
+            android:textSize="25dp" />
+
         <TextView
             android:id="@+id/textKms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:textColor="#333"
-            android:layout_gravity="center_vertical"
             android:layout_below="@id/textNom"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
             android:text="@string/kilometros"
-            android:textSize="20dp"/>
+            android:textColor="#333"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/textCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:textColor="#333"
-            android:layout_gravity="center_vertical"
             android:layout_below="@id/textKms"
-            android:textSize="20dp"
-            android:text="@string/categoria"/>
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:text="@string/categoria"
+            android:textColor="#333"
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/textInicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:textColor="#333"
-            android:layout_gravity="center_vertical"
             android:layout_below="@id/textCategoria"
-            android:textSize="20dp"
-            android:text="@string/inicio"/>
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:text="@string/inicio"
+            android:textColor="#333"
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/textFin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:textColor="#333"
-            android:layout_gravity="center_vertical"
             android:layout_below="@id/textInicio"
-            android:textSize="20dp"
-            android:text="@string/fin"/>
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:text="@string/fin"
+            android:textColor="#333"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textFin"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:text="Temp"
+            android:textColor="#333"
+            android:textSize="20dp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="0">
+        android:layout_weight="0"
+        android:gravity="center">
 
         <Button
+            android:id="@+id/botonIniciar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/iniciar_ruta"
-            android:id="@+id/botonIniciar"/>
+            android:text="@string/iniciar_ruta" />
 
     </RelativeLayout>
 

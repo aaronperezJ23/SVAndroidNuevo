@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -25,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -52,6 +56,9 @@ import java.util.Comparator;
 import javax.net.ssl.SSLContext;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
+
+    private final static int MY_PERMISSIONS_GPS_FINE_LOCATION = 1;
+    Intent mServiceIntent;
 
     private final String TAG = getClass().getSimpleName();
     private ArrayList<String> mNames;
@@ -114,6 +121,63 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 //Toast.makeText(MainActivity.this, "Has pulsado: " + mNames.get(position), Toast.LENGTH_LONG).show();
             }
         });
+
+
+        /*  SERVICIOS
+
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter(HelperGlobal.INTENT_LOCALIZATION_ACTION));
+
+
+        Button bt1 = findViewById(R.id.btStart);
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startService();
+            }
+        });
+
+        Button bt2 = findViewById(R.id.btStop);
+        bt2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopService(mServiceIntent);
+            }
+        });
+
+        // Ask user permission for location.
+        if (PackageManager.PERMISSION_GRANTED !=
+                ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_GPS_FINE_LOCATION);
+
+        } else {
+            startService();
+        }*/
+    }
+
+    // Este receiver gestiona mensajes recibidos con el intent 'location-event-position'
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String message = intent.getStringExtra(HelperGlobal.KEY_MESSAGE);
+            Log.d(TAG, "BroadcastReceiver::Got message: " + message);
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+
+        Log.i(TAG, "Activity onDestroy!");
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+
+
+        super.onDestroy();
     }
 
     @Override
@@ -144,6 +208,43 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 return;
             }
         }
+    }
+
+    /*  REQUEST PERMISSIONS DE SERVICIOS
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_GPS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // Permission granted by user
+                    Toast.makeText(getApplicationContext(), "GPS Permission granted!",
+                            Toast.LENGTH_SHORT).show();
+
+                    startService();
+
+                } else {
+                    // permission denied
+                    Toast.makeText(getApplicationContext(),
+                            "Permission denied by user!", Toast.LENGTH_SHORT).show();
+                }
+                return;
+
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }*/
+
+    public void startService() {
+
+        mServiceIntent = new Intent(getApplicationContext(), MyService.class);
+        startService(mServiceIntent);
     }
 
     @SuppressWarnings({"MissingPermission"})
@@ -223,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             textView3.setText(rutas.get(i).getmCategoria());
             ImageView imageView = v.findViewById(R.id.imageView2);
 
-            if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
+            /*if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
                 imageView.setImageResource(R.drawable.federacionmontana);
             }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("RutasSingleton por la Red de Vías Pecuarias")){
                 imageView.setImageResource(R.drawable.vp);
@@ -231,9 +332,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 imageView.setImageResource(R.drawable.seprona);
             }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Sendas Verdes de Madrid")){
                 imageView.setImageResource(R.drawable.unnamed);
-            }else{
+            }else{*/
                 imageView.setImageResource(R.drawable.ic_launcher_background);
-            }
+            //}
 
             return v;
         }
@@ -378,8 +479,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         +"Wind Speed: " + currentWeather.getWind().getSpeed() + "\n"
                         +"City, Country: " + currentWeather.getName() + ", " + currentWeather.getSys().getCountry()
                 );*/
-
-                //Log.d(TAG, "SUCCES");
             }
 
             @Override

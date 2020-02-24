@@ -57,8 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         polylineOptions.color(Color.BLUE);
 
 
-
-        // Add a marker in Sydney and move the camera
+        // Add a marker in local and move the camera
         LatLng local = new LatLng(locInit[0], locInit[1]);
         mMap.addMarker(new MarkerOptions().position(local));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(local));
