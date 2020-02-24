@@ -59,6 +59,8 @@ public class PulsarLista extends AppCompatActivity {
         TextView textView6 = (TextView) findViewById(R.id.textTemp);
         textView6.setText("Temperatura: " + String.valueOf(mRutaActual.getmTemperatura()) + "º");
 
+        //TextView textView7 = (TextView) findViewById(R.id.textDesc);
+        //textView7.setText("Clima: " + mRutaActual.getmDescTiempo());
 
     }
 

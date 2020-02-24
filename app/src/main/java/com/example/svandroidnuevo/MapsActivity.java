@@ -60,7 +60,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in local and move the camera
         LatLng local = new LatLng(locInit[0], locInit[1]);
         mMap.addMarker(new MarkerOptions().position(local));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(local));
+        float zoomLevel = 11.0f;
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(local));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(local, zoomLevel));
 
         HelperParser.Localizacion[] localizacion = mRutaActual.getmLocalizacion();
         for (HelperParser.Localizacion localizacion1 : localizacion) {

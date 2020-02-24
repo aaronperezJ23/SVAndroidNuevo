@@ -315,14 +315,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             TextView textView1 = (TextView) v.findViewById(R.id.textNom);
             textView1.setText(rutas.get(i).getmName());
             TextView textView2 = (TextView) v.findViewById(R.id.textKms);
-            //textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
+            textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
 
-            double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(rutas.get(i).mLocalizaciones[0].getLat(),rutas.get(i).mLocalizaciones[0].getLat()));
-            textView2.setText("Latitud: " + loc[0] + ", Longitud: " + loc[1]);
+            //double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(rutas.get(i).mLocalizaciones[0].getLat(),rutas.get(i).mLocalizaciones[0].getLat()));
+            //textView2.setText("Latitud: " + loc[0] + ", Longitud: " + loc[1]);
 
             TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
             textView3.setText(rutas.get(i).getmCategoria());
             ImageView imageView = v.findViewById(R.id.imageView2);
+
+            if(rutas.get(i).getmDescTiempo().equalsIgnoreCase("cielo claro")){
+                imageView.setImageResource(R.drawable.season);
+            }else{
 
             /*if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
                 imageView.setImageResource(R.drawable.federacionmontana);
@@ -334,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 imageView.setImageResource(R.drawable.unnamed);
             }else{*/
                 imageView.setImageResource(R.drawable.ic_launcher_background);
-            //}
+            }
 
             return v;
         }
@@ -472,6 +476,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void onSuccess(CurrentWeather currentWeather) {
                 ruta.setmTemperatura(currentWeather.getMain().getTempMax());
+                ruta.setmDescTiempo(currentWeather.getWeather().get(0).getDescription());
 
                 /*Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
                         +"Weather Description: " + currentWeather.getWeather().get(0).getDescription() + "\n"

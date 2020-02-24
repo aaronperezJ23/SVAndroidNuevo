@@ -65,6 +65,7 @@ public class HelperParser implements Serializable {
         public Localizacion[] mLocalizaciones;
 
         public double mTemperatura;
+        public String mDescTiempo;
 
         public Ruta(String mName, String mCategoria, Integer mLongitud, String mInicio, String mFinal, String mENP, String mColorFill, String mColorStroke, Localizacion[] mLocalizaciones) {
             this.mName = mName;
@@ -136,7 +137,13 @@ public class HelperParser implements Serializable {
             return mTemperatura;
         }
 
+        public void setmDescTiempo(String mDescTiempo) {
+            this.mDescTiempo = mDescTiempo;
+        }
 
+        public String getmDescTiempo() {
+            return mDescTiempo;
+        }
     }
 
     public ArrayList<Ruta> parseRutas(String content){
