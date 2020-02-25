@@ -202,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 if (grantResults.length > 0 && grantResults[0] ==  PackageManager.PERMISSION_GRANTED){
                     Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_LONG).show();
                     startLocation();
+                    //startService();
                 }else{
                     Toast.makeText(getApplicationContext(), "Permission denied by used", Toast.LENGTH_LONG).show();
                 }
@@ -441,10 +442,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             }
                             break;
                         }
-                    }
-
-                    for (HelperParser.Ruta mRuta : mRutas) {
-                        System.out.println(mRuta.getmTemperatura());
                     }
 
                     runOnUiThread(new Runnable() {
