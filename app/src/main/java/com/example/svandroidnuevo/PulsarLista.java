@@ -42,6 +42,7 @@ public class PulsarLista extends AppCompatActivity {
         mRutaActual = (HelperParser.Ruta) intent.getSerializableExtra("rutaActual");
         Log.d("HOLA", mRutaActual.getmCategoria());
 
+
         TextView textView1 = (TextView) findViewById(R.id.textNom);
         textView1.setText(mRutaActual.getmName());
         TextView textView2 = (TextView) findViewById(R.id.textKms);
