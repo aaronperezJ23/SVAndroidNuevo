@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -25,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -52,6 +56,10 @@ import java.util.Comparator;
 import javax.net.ssl.SSLContext;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
+
+    private final static int MY_PERMISSIONS_GPS_FINE_LOCATION = 1;
+    Intent mServiceIntent;
+
     private final String TAG = getClass().getSimpleName();
     private ArrayList<String> mNames;
     private boolean mListSimple = false;
@@ -61,20 +69,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private Location mCurrentLocation;
     private static final Integer MY_PERMISSIONS_GPS = 1;
 
-    private ArrayList<HelperParser.Ruta> mRutas;
+    public static ArrayList<HelperParser.Ruta> mRutas;
     private String[] mCategorias = new String[224];
     private String[] mInicio = new String[224];
 
     private ProgressDialog mPd;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
 
         TestSSL();
-        weatherInfo();
+        //weatherInfo();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -108,10 +114,70 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
                 Intent intent = new Intent(MainActivity.this, PulsarLista.class);
+                HelperParser.Ruta rutita = mRutas.get(position);
+                intent.putExtra("rutaActual", rutita);
                 startActivity(intent);
+
                 //Toast.makeText(MainActivity.this, "Has pulsado: " + mNames.get(position), Toast.LENGTH_LONG).show();
             }
         });
+
+
+        /*  SERVICIOS
+
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter(HelperGlobal.INTENT_LOCALIZATION_ACTION));
+
+
+        Button bt1 = findViewById(R.id.btStart);
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startService();
+            }
+        });
+
+        Button bt2 = findViewById(R.id.btStop);
+        bt2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopService(mServiceIntent);
+            }
+        });
+
+        // Ask user permission for location.
+        if (PackageManager.PERMISSION_GRANTED !=
+                ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_GPS_FINE_LOCATION);
+
+        } else {
+            startService();
+        }*/
+    }
+
+    // Este receiver gestiona mensajes recibidos con el intent 'location-event-position'
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String message = intent.getStringExtra(HelperGlobal.KEY_MESSAGE);
+            Log.d(TAG, "BroadcastReceiver::Got message: " + message);
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+
+        Log.i(TAG, "Activity onDestroy!");
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+
+
+        super.onDestroy();
     }
 
     @Override
@@ -136,12 +202,50 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 if (grantResults.length > 0 && grantResults[0] ==  PackageManager.PERMISSION_GRANTED){
                     Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_LONG).show();
                     startLocation();
+                    //startService();
                 }else{
                     Toast.makeText(getApplicationContext(), "Permission denied by used", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
         }
+    }
+
+    /*  REQUEST PERMISSIONS DE SERVICIOS
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_GPS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // Permission granted by user
+                    Toast.makeText(getApplicationContext(), "GPS Permission granted!",
+                            Toast.LENGTH_SHORT).show();
+
+                    startService();
+
+                } else {
+                    // permission denied
+                    Toast.makeText(getApplicationContext(),
+                            "Permission denied by user!", Toast.LENGTH_SHORT).show();
+                }
+                return;
+
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }*/
+
+    public void startService() {
+
+        mServiceIntent = new Intent(getApplicationContext(), MyService.class);
+        startService(mServiceIntent);
     }
 
     @SuppressWarnings({"MissingPermission"})
@@ -213,19 +317,27 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             textView1.setText(rutas.get(i).getmName());
             TextView textView2 = (TextView) v.findViewById(R.id.textKms);
             textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
+
+            //double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(rutas.get(i).mLocalizaciones[0].getLat(),rutas.get(i).mLocalizaciones[0].getLat()));
+            //textView2.setText("Latitud: " + loc[0] + ", Longitud: " + loc[1]);
+
             TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
             textView3.setText(rutas.get(i).getmCategoria());
             ImageView imageView = v.findViewById(R.id.imageView2);
 
-            if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
+            if(rutas.get(i).getmDescTiempo().equalsIgnoreCase("cielo claro")){
+                imageView.setImageResource(R.drawable.season);
+            }else{
+
+            /*if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
                 imageView.setImageResource(R.drawable.federacionmontana);
-            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Rutas por la Red de Vías Pecuarias")){
+            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("RutasSingleton por la Red de Vías Pecuarias")){
                 imageView.setImageResource(R.drawable.vp);
-            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Rutas por la Red de Espacios Naturales Protegidos")){
+            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("RutasSingleton por la Red de Espacios Naturales Protegidos")){
                 imageView.setImageResource(R.drawable.seprona);
             }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Sendas Verdes de Madrid")){
                 imageView.setImageResource(R.drawable.unnamed);
-            }else{
+            }else{*/
                 imageView.setImageResource(R.drawable.ic_launcher_background);
             }
 
@@ -258,7 +370,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         });
         return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -309,42 +420,29 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     throw new IOException("Unexpected code " + response);
                 } else {
 
-                    //Log.d(TAG, response.body().string());
                     Log.d(TAG, response.toString());
 
                     HelperParser myparser = new HelperParser();
                     mRutas = myparser.parseRutas(response.body().string());
                     Log.d(TAG,String.valueOf(mRutas.isEmpty()));
                     for(int i = 0; i<mRutas.size();i++){
-                        //Log.d("hola", response);
                         mCategorias[i]=(mRutas.get(i).getmCategoria());
-                        //mLocalizaciones.add(mRutas.get(i).getmLocalizacion());
-                        //mInicio[i]=(mRutas.get(i).getmInicio());
-                        //Log.d(TAG, mRutas.get(i).getmName());
-                        //Log.d(TAG, String.valueOf(mRutas.get(i).getmLongitud()));
-                        //Log.d(TAG, mRutas.get(i).getmCategoria());
-                        //Log.d(TAG, mRutas.get(i).getmENP());
-
                     }
 
-                    Arrays.sort(mCategorias);
-
-                    for (int i=0; i<mCategorias.length;i++){
-                          Log.d(TAG,mCategorias[i]);
-                    }
-
-                    /*for (HelperParser.Ruta mRuta : mRutas) {
+                    for (HelperParser.Ruta mRuta : mRutas) {
                         HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
                         for (HelperParser.Localizacion localizacion1 : localizacion) {
-                            //System.out.println(mRuta.getmName() + "---" + localizacion1.getLat());
-
+                            double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(),localizacion1.getLon()));
+                            //System.out.println(mRuta.getmName() + ", Latitud: " + loc[0] + ", Longitud: " + loc[1]);
+                            weatherInfo(loc[0], loc[1], mRuta);
+                            try {
+                                Thread.sleep(40);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            break;
                         }
-                    }*/
-                    //Arrays.sort(mInicio);
-
-                    //for (int i=0; i<mInicio.length;i++){
-                      //  Log.d(TAG,mInicio[i]);
-                    //}
+                    }
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -356,14 +454,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     mPd.dismiss();
 
-
                 }
             }
         });
 
     }
 
-    public void weatherInfo(){
+    private void weatherInfo(double lat, double lon, final HelperParser.Ruta ruta){
+
 
         OpenWeatherMapHelper helper = new OpenWeatherMapHelper(getString(R.string.OPEN_WEATHER_MAP_API_KEY));
 
@@ -371,22 +469,29 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         helper.setLang(Lang.SPANISH);
 
-        helper.getCurrentWeatherByGeoCoordinates(5.6037, 0.1870, new CurrentWeatherCallback() {
+        helper.getCurrentWeatherByGeoCoordinates(lat,  lon, new CurrentWeatherCallback() {
             @Override
             public void onSuccess(CurrentWeather currentWeather) {
-                Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
+                ruta.setmTemperatura(currentWeather.getMain().getTempMax());
+                ruta.setmDescTiempo(currentWeather.getWeather().get(0).getDescription());
+
+                /*Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
                         +"Weather Description: " + currentWeather.getWeather().get(0).getDescription() + "\n"
                         +"Temperature: " + currentWeather.getMain().getTempMax()+"\n"
                         +"Wind Speed: " + currentWeather.getWind().getSpeed() + "\n"
                         +"City, Country: " + currentWeather.getName() + ", " + currentWeather.getSys().getCountry()
-                );
+                );*/
             }
 
             @Override
             public void onFailure(Throwable throwable) {
                 Log.v(TAG, throwable.getMessage());
             }
+
+
         });
+
+
     }
 
 }

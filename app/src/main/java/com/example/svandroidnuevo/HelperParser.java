@@ -1,20 +1,25 @@
 package com.example.svandroidnuevo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class HelperParser {
+public class HelperParser implements Serializable {
 
     private final String TAG = getClass().getSimpleName();
 
-    public static class Localizacion{
-        public Double lat=null;
-        public Double lon=null;
+    public static class Localizacion implements Serializable{
+        public Double lat;
+        public Double lon;
 
         public Double getLat() {
             return lat;
@@ -22,6 +27,14 @@ public class HelperParser {
 
         public Double getLon() {
             return lon;
+        }
+
+        public void setLat(Double lat) {
+            this.lat = lat;
+        }
+
+        public void setLon(Double lon) {
+            this.lon = lon;
         }
 
         public Localizacion(Double lat, Double lon){
@@ -38,7 +51,7 @@ public class HelperParser {
         }
     }
 
-    public class Ruta {
+    public class Ruta implements Serializable {
         private String mName;
         private String mCategoria;
         private Integer mLongitud;
@@ -49,9 +62,10 @@ public class HelperParser {
         private String mColorFill;
         private String mColorStroke;
 
-        private Localizacion[] mLocalizaciones;
+        public Localizacion[] mLocalizaciones;
 
-
+        public double mTemperatura;
+        public String mDescTiempo;
 
         public Ruta(String mName, String mCategoria, Integer mLongitud, String mInicio, String mFinal, String mENP, String mColorFill, String mColorStroke, Localizacion[] mLocalizaciones) {
             this.mName = mName;
@@ -63,6 +77,7 @@ public class HelperParser {
             this.mColorFill = mColorFill;
             this.mColorStroke = mColorStroke;
             this.mLocalizaciones = mLocalizaciones;
+
         }
 
         @Override
@@ -114,6 +129,21 @@ public class HelperParser {
 
         public Localizacion[] getmLocalizacion(){ return mLocalizaciones; }
 
+        public void setmTemperatura(double mTemperatura) {
+            this.mTemperatura = mTemperatura;
+        }
+
+        public double getmTemperatura() {
+            return mTemperatura;
+        }
+
+        public void setmDescTiempo(String mDescTiempo) {
+            this.mDescTiempo = mDescTiempo;
+        }
+
+        public String getmDescTiempo() {
+            return mDescTiempo;
+        }
     }
 
     public ArrayList<Ruta> parseRutas(String content){
@@ -143,7 +173,7 @@ public class HelperParser {
         String name = "", categoria = "", inicio="", fnl="",
                 enp="", colorFill="", colorStroke="";
         Integer longitud = 0;
-        Localizacion[] loc = new Localizacion[10000];
+        Localizacion[] loc=null;
 
         try {
 
@@ -151,29 +181,17 @@ public class HelperParser {
                 JSONObject geo = jsonData.getJSONObject("geometry");
                 if(geo.has("coordinates")){
                     JSONArray coordenadas = geo.getJSONArray("coordinates");
+                    //Log.d(TAG, String.valueOf(coordenadas.length()));
+                    loc = new Localizacion[coordenadas.length()];
                     for(int i = 0; i < coordenadas.length();i++){
                         JSONArray node = coordenadas.getJSONArray(i);
-                        //loc[i] = new Localizacion(node.getDouble(0), node.getDouble(1));
-                        //System.out.println(node.get(0).getClass().getSimpleName());
 
-                        if(node.get(0).getClass().getSimpleName().equalsIgnoreCase("Double")){
-                            //System.out.println("LATITUD: " + node.get(0) +" - LONGITUD: " + node.get(1));
-                            loc[i] = new Localizacion(((Double) node.get(0)), (Double)node.get(1));
-                        }else {
-                            //System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++" + node.get(0) + "+++++++++++++++++++++++++++++++++++++++");
-                            loc[i]= new Localizacion(1.0,1.0);
-                           // JSONArray node2 = node.getJSONArray(i);
-
-                            //for (int j = 0; j < coordenadas.length();j++){
-
-                            //}
-                            //loc[i] = new Localizacion(node.getDouble(0), node.getDouble(1));
-                            //JSONArray array = node.getJSONArray(0);
-                            //for (int j = 0; j < array.length(); j++)
-                              //  System.out.println("Lat: " + array.getDouble(0));
-                            //System.out.println(loc[i].toString());
-                            //System.out.println("Lat: " + node.getDouble(0) + " - Lon: " +node.getDouble(1));
-                        }
+                            loc[i] = new Localizacion(node.optDouble(0),node.optDouble(1));
+                             if(node.optJSONArray(i)!=null) {
+                                 for (int j = 0; j < node.optJSONArray(i).length(); j++) {
+                                     loc[i] = new Localizacion(node.optJSONArray(j).optDouble(0), node.optJSONArray(j).optDouble(1));
+                                 }
+                             }
 
 
                     }
@@ -209,4 +227,5 @@ public class HelperParser {
         }
 
     }
+
 }

@@ -25,13 +25,6 @@
             android:layout_gravity="center_vertical"
             android:text="@string/nombre"
             android:textSize="20dp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textNom"
-            android:layout_alignParentRight="true"
-            android:src="@android:drawable/btn_star_big_off"
-            />
 
         <TextView
             android:id="@+id/textKms"
