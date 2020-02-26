@@ -39,7 +39,7 @@ public class PulsarLista extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        mRutaActual = (HelperParser.Ruta) intent.getSerializableExtra("rutaActual");
+        mRutaActual = (HelperParser.Ruta) intent.getParcelableExtra("rutaActual");
         //Log.d("HOLA", mRutaActual.getmCategoria());
 
 

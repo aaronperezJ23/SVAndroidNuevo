@@ -17,9 +17,56 @@ public class HelperParser implements Serializable {
 
     private final String TAG = getClass().getSimpleName();
 
-    public static class Localizacion implements Serializable{
+    public static class Localizacion implements Parcelable{
         public Double lat;
         public Double lon;
+
+        protected Localizacion(Parcel in) {
+            if (in.readByte() == 0) {
+                lat = null;
+            } else {
+                lat = in.readDouble();
+            }
+            if (in.readByte() == 0) {
+                lon = null;
+            } else {
+                lon = in.readDouble();
+            }
+
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            if (lat == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeDouble(lat);
+            }
+            if (lon == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeDouble(lon);
+            }
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<Localizacion> CREATOR = new Creator<Localizacion>() {
+            @Override
+            public Localizacion createFromParcel(Parcel in) {
+                return new Localizacion(in);
+            }
+
+            @Override
+            public Localizacion[] newArray(int size) {
+                return new Localizacion[size];
+            }
+        };
 
         public Double getLat() {
             return lat;
@@ -51,7 +98,7 @@ public class HelperParser implements Serializable {
         }
     }
 
-    public class Ruta implements Serializable {
+    public static class Ruta implements Parcelable{
         private String mName;
         private String mCategoria;
         private Integer mLongitud;
@@ -79,6 +126,61 @@ public class HelperParser implements Serializable {
             this.mLocalizaciones = mLocalizaciones;
 
         }
+
+        protected Ruta(Parcel in) {
+            mName = in.readString();
+            mCategoria = in.readString();
+            if (in.readByte() == 0) {
+                mLongitud = null;
+            } else {
+                mLongitud = in.readInt();
+            }
+            mInicio = in.readString();
+            mFinal = in.readString();
+            mENP = in.readString();
+            mColorFill = in.readString();
+            mColorStroke = in.readString();
+            mLocalizaciones = in.createTypedArray(Localizacion.CREATOR);
+            mTemperatura = in.readDouble();
+            mDescTiempo = in.readString();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(mName);
+            dest.writeString(mCategoria);
+            if (mLongitud == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeInt(mLongitud);
+            }
+            dest.writeString(mInicio);
+            dest.writeString(mFinal);
+            dest.writeString(mENP);
+            dest.writeString(mColorFill);
+            dest.writeString(mColorStroke);
+            dest.writeTypedArray(mLocalizaciones, flags);
+            dest.writeDouble(mTemperatura);
+            dest.writeString(mDescTiempo);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<Ruta> CREATOR = new Creator<Ruta>() {
+            @Override
+            public Ruta createFromParcel(Parcel in) {
+                return new Ruta(in);
+            }
+
+            @Override
+            public Ruta[] newArray(int size) {
+                return new Ruta[size];
+            }
+        };
 
         @Override
         public String toString() {
