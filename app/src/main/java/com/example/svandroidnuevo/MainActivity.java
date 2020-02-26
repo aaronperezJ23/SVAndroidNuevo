@@ -325,20 +325,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             textView3.setText(rutas.get(i).getmCategoria());
             ImageView imageView = v.findViewById(R.id.imageView2);
 
-            if(rutas.get(i).getmDescTiempo().equalsIgnoreCase("cielo claro")){
-                imageView.setImageResource(R.drawable.season);
-            }else{
 
-            /*if(rutas.get(i).getmCategoria().equalsIgnoreCase("Federación de Montaña")){
-                imageView.setImageResource(R.drawable.federacionmontana);
-            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("RutasSingleton por la Red de Vías Pecuarias")){
-                imageView.setImageResource(R.drawable.vp);
-            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("RutasSingleton por la Red de Espacios Naturales Protegidos")){
-                imageView.setImageResource(R.drawable.seprona);
-            }else if (rutas.get(i).getmCategoria().equalsIgnoreCase("Sendas Verdes de Madrid")){
-                imageView.setImageResource(R.drawable.unnamed);
-            }else{*/
-                imageView.setImageResource(R.drawable.ic_launcher_background);
+            if(rutas.get(i).getmDescTiempo()!=null) {
+                if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("cielo claro")) {
+                    imageView.setImageResource(R.drawable.season);
+                } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nubes dispersas")) {
+                    imageView.setImageResource(R.drawable.cloud);
+                } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("algo de nubes")) {
+                    imageView.setImageResource(R.drawable.forecast);
+                } else {
+                    imageView.setImageResource(R.drawable.ic_launcher_background);
+                }
             }
 
             return v;
@@ -435,11 +432,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(),localizacion1.getLon()));
                             //System.out.println(mRuta.getmName() + ", Latitud: " + loc[0] + ", Longitud: " + loc[1]);
                             weatherInfo(loc[0], loc[1], mRuta);
-                            try {
+                            //System.out.println(mRuta.getmDescTiempo());
+                            /*try {
                                 Thread.sleep(40);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
                             break;
                         }
                     }
@@ -475,12 +473,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 ruta.setmTemperatura(currentWeather.getMain().getTempMax());
                 ruta.setmDescTiempo(currentWeather.getWeather().get(0).getDescription());
 
-                /*Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
+                Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
                         +"Weather Description: " + currentWeather.getWeather().get(0).getDescription() + "\n"
                         +"Temperature: " + currentWeather.getMain().getTempMax()+"\n"
                         +"Wind Speed: " + currentWeather.getWind().getSpeed() + "\n"
                         +"City, Country: " + currentWeather.getName() + ", " + currentWeather.getSys().getCountry()
-                );*/
+                );
             }
 
             @Override

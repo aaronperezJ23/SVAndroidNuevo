@@ -40,7 +40,7 @@ public class PulsarLista extends AppCompatActivity {
 
         Intent intent = getIntent();
         mRutaActual = (HelperParser.Ruta) intent.getSerializableExtra("rutaActual");
-        Log.d("HOLA", mRutaActual.getmCategoria());
+        //Log.d("HOLA", mRutaActual.getmCategoria());
 
 
         TextView textView1 = (TextView) findViewById(R.id.textNom);
