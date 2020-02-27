@@ -333,6 +333,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     imageView.setImageResource(R.drawable.cloud);
                 } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("algo de nubes")) {
                     imageView.setImageResource(R.drawable.forecast);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nubes rotas")) {
+                    imageView.setImageResource(R.drawable.forecast);
                 } else {
                     imageView.setImageResource(R.drawable.ic_launcher_background);
                 }
@@ -380,6 +382,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Collections.sort(mRutas, new PulsarLista.cusComparatorCat());
         }else if(id == R.id.fav){
             Toast.makeText(this,"Opcion FAVORITO", Toast.LENGTH_SHORT).show();
+            Intent mIntent = new Intent(this, ListaFavs.class);
+            //mIntent.putParcelableArrayListExtra(KEY_ARRAY, mArray);
+            startActivity(mIntent);
         }else if(id == R.id.ajustes){
             Toast.makeText(this,"Opcion AJUSTES", Toast.LENGTH_SHORT).show();
         }else if(id == R.id.ayuda){
