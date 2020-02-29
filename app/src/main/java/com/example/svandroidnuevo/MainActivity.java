@@ -335,6 +335,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     imageView.setImageResource(R.drawable.forecast);
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nubes rotas")) {
                     imageView.setImageResource(R.drawable.forecast);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nubes")) {
+                    imageView.setImageResource(R.drawable.forecast);
                 } else {
                     imageView.setImageResource(R.drawable.ic_launcher_background);
                 }

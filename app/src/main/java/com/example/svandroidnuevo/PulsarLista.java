@@ -120,13 +120,11 @@ public class PulsarLista extends AppCompatActivity {
 
         mArray.add(mRutaActual);
 
-
         Gson gson = new Gson();
         String json = gson.toJson(mArray);
         editor.putString(KEY_ARRAY, json);
         editor.commit();
 
-        //editor.apply();
 
         Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
     }
