@@ -447,6 +447,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             }*/
                             break;
                         }
+
+
                     }
 
                     runOnUiThread(new Runnable() {

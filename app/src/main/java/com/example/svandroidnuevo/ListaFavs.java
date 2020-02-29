@@ -43,8 +43,7 @@ public class ListaFavs extends AppCompatActivity {
 
         myadapter = new MyAdapter(this, R.layout.descripcion_lista, mArray);
         lv.setAdapter(myadapter);
-
-
+        
         //myadapter = new MyAdapter(this, R.layout.descripcion_lista, mArray);
         //lv.setAdapter(myadapter);
 
