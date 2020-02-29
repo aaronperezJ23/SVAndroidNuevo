@@ -30,6 +30,8 @@ dependencies {
 
     implementation 'com.github.KwabenBerko:OpenWeatherMap-Android-Library:2.0.2'
 
+    implementation 'com.google.code.gson:gson:2.6.2'
+
 
     implementation 'com.squareup.okhttp:okhttp:2.5.0'
     implementation 'com.github.mklimek:ssl-utils-android:1.0.1'

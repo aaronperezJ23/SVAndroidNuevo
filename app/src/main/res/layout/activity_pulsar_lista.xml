@@ -90,18 +90,24 @@
             android:textSize="20dp" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/botonIniciar"
+            android:id="@+id/botonMapa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/iniciar_ruta" />
+            android:text="VER EN MAPA" />
+        <Button
+            android:id="@+id/botonFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GUARDAR FAV" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -33,7 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         Intent intent = getIntent();
-        mRutaActual = (HelperParser.Ruta) intent.getSerializableExtra("rutaLoc");
+        mRutaActual = (HelperParser.Ruta) intent.getParcelableExtra("rutaLoc");
     }
 
 
