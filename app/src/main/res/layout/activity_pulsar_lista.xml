@@ -19,10 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0"
             android:text="@string/nombre"
             android:textColor="#333"
-            android:textSize="25dp" />
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/textKms"
@@ -30,10 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textNom"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0"
             android:text="@string/kilometros"
             android:textColor="#333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textCategoria"
@@ -41,10 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textKms"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0"
             android:text="@string/categoria"
             android:textColor="#333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textInicio"
@@ -52,10 +49,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textCategoria"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0"
             android:text="@string/inicio"
             android:textColor="#333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textFin"
@@ -63,10 +59,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textInicio"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0"
             android:text="@string/fin"
             android:textColor="#333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textTemp"
@@ -74,20 +69,17 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textFin"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0"
-            android:text="Temp"
+            android:text="@string/temp"
             android:textColor="#333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/textDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textTemp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0"
-
             android:textColor="#333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -101,13 +93,12 @@
             android:id="@+id/botonMapa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VER EN MAPA" />
+            android:text="@string/ver_en_mapa" />
         <Button
             android:id="@+id/botonFav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GUARDAR FAV" />
-
+            android:text="@string/guardar_fav" />
     </LinearLayout>
 
 </LinearLayout>
