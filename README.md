@@ -2,18 +2,14 @@
 
 Aplicación que permite ver y guardar las rutas de senderismo de la Comunidad de Madrid.
 
-**** Consultar API con geolocalizacion actual.
+API rutas verdes, API tiempo. ---- done
 
-API rutas verdes, API tiempo.
+Cercania, Distancia y ruta (shared prefereneces). 
 
-**** API altitud. Añadir perfil de la ruta
-
-Distancia y ruta (shared prefereneces). 
-
-Rutas favorirtos (lista)
+Rutas favorirtos (lista) ---- done
 
 GPS, AsyncTask, ProgressDialog
 
 Notificaciones (pensar) RUTAS CERCANAS A FAVORITAS
 
-Fusionar info tiempo y rutas."
+Fusionar info tiempo y rutas. ---- done
