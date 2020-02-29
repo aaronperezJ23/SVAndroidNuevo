@@ -16,6 +16,7 @@
             <item android:id="@+id/categoria" android:title="@string/categoria"/>
         </menu>
     </item>
+    <item android:id="@+id/filtra" android:title="Filtrar" />
     <item android:id="@+id/fav" android:title="@string/fav" />
     <item android:id="@+id/ajustes" android:title="@string/ajustes" />
     <item android:id="@+id/ayuda" android:title="@string/ayuda" />

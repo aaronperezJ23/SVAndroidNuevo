@@ -43,15 +43,6 @@ public class ListaFavs extends AppCompatActivity {
 
         myadapter = new MyAdapter(this, R.layout.descripcion_lista, mArray);
         lv.setAdapter(myadapter);
-        
-        //myadapter = new MyAdapter(this, R.layout.descripcion_lista, mArray);
-        //lv.setAdapter(myadapter);
-
-        /*ArrayAdapter<HelperParser.Ruta> adapter =
-                    new ArrayAdapter<HelperParser.Ruta>(this, android.R.layout.simple_list_item_1, mArray);
-
-        lv.setAdapter(adapter);*/
-
 
     }
 
@@ -91,9 +82,6 @@ public class ListaFavs extends AppCompatActivity {
             textView1.setText(rutas.get(i).getmName());
             TextView textView2 = (TextView) v.findViewById(R.id.textKms);
             textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
-
-            //double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(rutas.get(i).mLocalizaciones[0].getLat(),rutas.get(i).mLocalizaciones[0].getLat()));
-            //textView2.setText("Latitud: " + loc[0] + ", Longitud: " + loc[1]);
 
             TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
             textView3.setText(rutas.get(i).getmCategoria());

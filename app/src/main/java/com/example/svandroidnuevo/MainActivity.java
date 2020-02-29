@@ -1,6 +1,7 @@
 package com.example.svandroidnuevo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -8,6 +9,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -382,10 +384,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Collections.sort(mRutas, new PulsarLista.cusComparatorLong());
         }else if(id == R.id.categoria){
             Collections.sort(mRutas, new PulsarLista.cusComparatorCat());
+        }else if(id == R.id.filtra){
+            Intent mIntent = new Intent(this, FiltrosActivity.class);
+            startActivityForResult(mIntent, 1);
         }else if(id == R.id.fav){
             Toast.makeText(this,"Opcion FAVORITO", Toast.LENGTH_SHORT).show();
             Intent mIntent = new Intent(this, ListaFavs.class);
-            //mIntent.putParcelableArrayListExtra(KEY_ARRAY, mArray);
             startActivity(mIntent);
         }else if(id == R.id.ajustes){
             Toast.makeText(this,"Opcion AJUSTES", Toast.LENGTH_SHORT).show();
@@ -393,6 +397,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Toast.makeText(this,"Opcion AYUDA", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            Integer cercania_input = data.getIntExtra("CERCANIA_INPUT",-1);
+            Integer longitud_input = data.getIntExtra("LONGITUD_INPUT",-1);
+
+            Boolean enp_return = data.getBooleanExtra("ENP_RETURN",false);
+            Boolean senda_return = data.getBooleanExtra("SENDA_RETURN",false);
+            Boolean fm_return = data.getBooleanExtra("FM_RETURN",false);
+            Boolean vp_return = data.getBooleanExtra("VP_RETURN",false);
+
+
+        }
     }
 
     private void TestSSL () {
