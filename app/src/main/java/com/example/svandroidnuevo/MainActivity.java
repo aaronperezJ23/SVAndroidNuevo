@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             loadData();
             TestSSL();
         }
-
     }
 
     @Override
@@ -117,12 +116,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                Intent intent = new Intent(MainActivity.this, PulsarLista.class);
-                HelperParser.Ruta rutita = mRutasAux.get(position);
-                intent.putExtra("rutaActual", rutita);
-                startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, PulsarLista.class);
+            HelperParser.Ruta rutita = mRutasAux.get(position);
+            intent.putExtra("rutaActual", rutita);
+            startActivity(intent);
 
-                //Toast.makeText(MainActivity.this, "Has pulsado: " + mNames.get(position), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -183,16 +181,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
             String message = intent.getStringExtra(HelperGlobal.KEY_MESSAGE);
-            Log.d(TAG, "BroadcastReceiver::Got message: " + message);
+            Log.d(TAG, getString(R.string.brotcastReciv) + message);
         }
     };
 
     @Override
     protected void onDestroy() {
-
-        Log.i(TAG, "Activity onDestroy!");
+        Log.i(TAG, getString(R.string.onDestr));
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-
         super.onDestroy();
     }
 
@@ -205,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             ActivityCompat.requestPermissions(MainActivity.this, new  String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_GPS);
         }else{
-            Toast.makeText(getApplicationContext(), "[LOCATION] Permission granted in the past!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.inthepastPermi, Toast.LENGTH_SHORT).show();
             startLocation();
         }
     }
@@ -216,11 +212,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         switch (requestCode){
             case 1: {
                 if (grantResults.length > 0 && grantResults[0] ==  PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.grantedPermission, Toast.LENGTH_LONG).show();
                     startLocation();
                     //startService();
                 }else{
-                    Toast.makeText(getApplicationContext(), "Permission denied by used", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.deniedPermission, Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -303,34 +299,32 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             TextView textView2 = (TextView) v.findViewById(R.id.textKms);
             textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
 
-
             TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
             textView3.setText(rutas.get(i).getmCategoria());
             ImageView imageView = v.findViewById(R.id.imageView2);
 
-
             if(rutas.get(i).getmDescTiempo()!=null) {
-                if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("cielo claro")) {
+                if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.claro))) {
                     imageView.setImageResource(R.drawable.cieloclaro);
-                } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nubes dispersas")) {
+                } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.dispersas))) {
                     imageView.setImageResource(R.drawable.nubess);
-                } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("algo de nubes")) {
+                } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.algoNubes))) {
                     imageView.setImageResource(R.drawable.algonubes);
-                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nubes rotas")) {
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.rotas))) {
                     imageView.setImageResource(R.drawable.nubesrotas);
-                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nubes")) {
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.nubes))) {
                     imageView.setImageResource(R.drawable.nubes);
-                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("lluvia ligera")) {
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.lluLigera))) {
                     imageView.setImageResource(R.drawable.lluvialigera);
-                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("niebla")) {
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.niebla))) {
                     imageView.setImageResource(R.drawable.niebla);
-                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nieve")) {
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.nieve))) {
                     imageView.setImageResource(R.drawable.nieve);
-                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("lluvia moderada")) {
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.lluModerada))) {
                     imageView.setImageResource(R.drawable.lluviamoderada);
-                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("tormenta")) {
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.tormenta))) {
                     imageView.setImageResource(R.drawable.tormenta);
-                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("llovizna ligera")) {
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.lloLigera))) {
                     imageView.setImageResource(R.drawable.llovizna);
                 } else {
                     imageView.setImageResource(R.drawable.ic_launcher_background);
@@ -353,7 +347,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(MainActivity.this, "hola", Toast.LENGTH_SHORT).show();
                 //se oculta el EditText
                 searchView.setQuery("", false);
                 searchView.setIconified(true);
@@ -381,13 +374,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Intent mIntent = new Intent(this, FiltrosActivity.class);
             startActivity(mIntent);
         }else if(id == R.id.fav){
-            Toast.makeText(this,"Opcion FAVORITO", Toast.LENGTH_SHORT).show();
             Intent mIntent = new Intent(this, ListaFavs.class);
             startActivity(mIntent);
-        }else if(id == R.id.ajustes){
-            Toast.makeText(this,"Opcion AJUSTES", Toast.LENGTH_SHORT).show();
         }else if(id == R.id.ayuda){
-            Toast.makeText(this,"Opcion AYUDA", Toast.LENGTH_SHORT).show();
+            Intent mIntent = new Intent(this, Ayuda.class);
+            startActivity(mIntent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -398,19 +389,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         SSLContext sslContext = SslUtils.getSslContextForCertificateFile(this, "comunidad-madrid.pem");
         client.setSslSocketFactory(sslContext.getSocketFactory());
 
-
         Request request = new Request.Builder()
                 .url("https://datos.comunidad.madrid/catalogo/dataset/66784709-f106-4906-bf37-8c46c6033f54/resource/d37614e5-22c1-41b6-9334-66e7ee61975c/download/spacmsendasnaturaleza.json")
                 .build();
 
         mPd = new ProgressDialog(MainActivity.this);
-        mPd.setTitle("Adquiriendo datos...");
+        mPd.setTitle(getString(R.string.adquiriendo_dat));
         mPd.show();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-
-
                 Log.e(TAG, request.toString());
             }
 
@@ -422,7 +410,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 } else {
 
                     Log.d(TAG, response.toString());
-
                     HelperParser myparser = new HelperParser();
                     mRutas = myparser.parseRutas(response.body().string());
                     Log.d(TAG,String.valueOf(mRutas.isEmpty()));
@@ -449,16 +436,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     }
                     for (HelperParser.Ruta mRuta : mRutas) {
                         if(mRuta.getmLongitud()<mLongitud){
-                            if(mFM && mRuta.getmCategoria().equalsIgnoreCase("Federación de Montaña")) {
+                            if(mFM && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.fm))) {
                                 mRutasAux.add(mRuta);
                             }
-                            if(mSV && mRuta.getmCategoria().equalsIgnoreCase("Sendas Verdes de Madrid")) {
+                            if(mSV && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.sv))) {
                                 mRutasAux.add(mRuta);
                             }
-                            if(mENP && mRuta.getmCategoria().equalsIgnoreCase("Rutas por la Red de Espacios Naturales Protegidos")) {
+                            if(mENP && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.enp))) {
                                 mRutasAux.add(mRuta);
                             }
-                            if(mVP && mRuta.getmCategoria().equalsIgnoreCase("Rutas por la Red de Vías Pecuarias")) {
+                            if(mVP && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.rvp))) {
                                 mRutasAux.add(mRuta);
                             }
                             Log.d(TAG, mRuta.getmCategoria());
@@ -468,16 +455,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
-
-
-                            myadapter=new MyAdapter(MainActivity.this, R.layout.descripcion_lista,mRutasAux);
-                            lv.setAdapter(myadapter);
+                        myadapter=new MyAdapter(MainActivity.this, R.layout.descripcion_lista,mRutasAux);
+                        lv.setAdapter(myadapter);
                         }
                     });
-
                     mPd.dismiss();
-
                 }
             }
         });
@@ -485,8 +467,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     private void weatherInfo(double lat, double lon, final HelperParser.Ruta ruta){
-
-
         OpenWeatherMapHelper helper = new OpenWeatherMapHelper(getString(R.string.OPEN_WEATHER_MAP_API_KEY));
 
         helper.setUnits(Units.METRIC);
@@ -499,11 +479,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 ruta.setmTemperatura(currentWeather.getMain().getTempMax());
                 ruta.setmDescTiempo(currentWeather.getWeather().get(0).getDescription());
 
-                Log.v(TAG, "Coordinates: " + currentWeather.getCoord().getLat() + ", "+currentWeather.getCoord().getLon() +"\n"
-                        +"Weather Description: " + currentWeather.getWeather().get(0).getDescription() + "\n"
-                        +"Temperature: " + currentWeather.getMain().getTempMax()+"\n"
-                        +"Wind Speed: " + currentWeather.getWind().getSpeed() + "\n"
-                        +"City, Country: " + currentWeather.getName() + ", " + currentWeather.getSys().getCountry()
+                Log.v(TAG, getString(R.string.weather, currentWeather.getCoord().getLat(), currentWeather.getCoord().getLon(),
+                        currentWeather.getCoord().getLon(), currentWeather.getMain().getTempMax(), currentWeather.getWind().getSpeed(),
+                        currentWeather.getName(), currentWeather.getSys().getCountry())
                 );
             }
 
@@ -511,11 +489,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             public void onFailure(Throwable throwable) {
                 Log.v(TAG, throwable.getMessage());
             }
-
-
         });
-
-
     }
 
 }

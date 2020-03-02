@@ -55,25 +55,52 @@ public class PulsarLista extends AppCompatActivity {
         //Log.d("HOLA", mRutaActual.getmCategoria());
 
 
-        TextView textView1 = (TextView) findViewById(R.id.textNom);
+        TextView textView1 = findViewById(R.id.textNom);
         textView1.setText(mRutaActual.getmName());
-        TextView textView2 = (TextView) findViewById(R.id.textKms);
-        textView2.setText("Longitud: " + mRutaActual.getmLongitud().toString() + " km");
+        TextView textView2 = findViewById(R.id.textKms);
+        textView2.setText(getString(R.string.longi, mRutaActual.getmLongitud().toString()));
 
-        TextView textView3 = (TextView) findViewById(R.id.textCategoria);
-        textView3.setText("Categoría: " + mRutaActual.getmCategoria());
+        TextView textView3 = findViewById(R.id.textCategoria);
+        textView3.setText(getString(R.string.cate, mRutaActual.getmCategoria()));
 
-        TextView textView4 = (TextView) findViewById(R.id.textInicio);
-        textView4.setText("Inicio: " + mRutaActual.getmInicio());
+        TextView textView4 = findViewById(R.id.textInicio);
+        textView4.setText(getString(R.string.ini, mRutaActual.getmInicio()));
 
-        TextView textView5 = (TextView) findViewById(R.id.textFin);
-        textView5.setText("Final: " + mRutaActual.getmFinal());
+        TextView textView5 = findViewById(R.id.textFin);
+        textView5.setText(getString(R.string.end, mRutaActual.getmFinal()));
 
-        TextView textView6 = (TextView) findViewById(R.id.textTemp);
-        textView6.setText("Temperatura: " + String.valueOf(mRutaActual.getmTemperatura()) + "º");
+        TextView textView6 = findViewById(R.id.textTemp);
+        textView6.setText(getString(R.string.tempe, String.valueOf(mRutaActual.getmTemperatura())));
 
-        //TextView textView7 = (TextView) findViewById(R.id.textDesc);
-        //textView7.setText("Clima: " + mRutaActual.getmDescTiempo());
+        ImageView imageView = findViewById(R.id.imagenTiempo);
+
+        if(mRutaActual.getmDescTiempo()!=null) {
+            if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.claro))) {
+                imageView.setImageResource(R.drawable.cieloclaro);
+            } else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.dispersas))) {
+                imageView.setImageResource(R.drawable.nubess);
+            } else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.algoNubes))) {
+                imageView.setImageResource(R.drawable.algonubes);
+            }else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.rotas))) {
+                imageView.setImageResource(R.drawable.nubesrotas);
+            }else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.nubes))) {
+                imageView.setImageResource(R.drawable.nubes);
+            }else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.lluLigera))) {
+                imageView.setImageResource(R.drawable.lluvialigera);
+            }else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.niebla))) {
+                imageView.setImageResource(R.drawable.niebla);
+            }else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.nieve))) {
+                imageView.setImageResource(R.drawable.nieve);
+            }else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.lluModerada))) {
+                imageView.setImageResource(R.drawable.lluviamoderada);
+            }else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.tormenta))) {
+                imageView.setImageResource(R.drawable.tormenta);
+            }else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.lloLigera))) {
+                imageView.setImageResource(R.drawable.llovizna);
+            } else {
+                imageView.setImageResource(R.drawable.ic_launcher_background);
+            }
+        }
 
         final Button botonFav = findViewById(R.id.botonFav);
         botonFav.setOnClickListener(new View.OnClickListener() {
@@ -85,9 +112,6 @@ public class PulsarLista extends AppCompatActivity {
                 botonFav.setEnabled(false);
             }
         });
-
-
-
     }
 
     public void saveData(){
