@@ -321,17 +321,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nubes")) {
                     imageView.setImageResource(R.drawable.nubes);
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("lluvia ligera")) {
-                    imageView.setImageResource(R.drawable.lluvialigera);
+                    imageView.setImageResource(R.drawable.lluviamoderada);
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("niebla")) {
                     imageView.setImageResource(R.drawable.niebla);
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nieve")) {
                     imageView.setImageResource(R.drawable.nieve);
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("lluvia moderada")) {
-                    imageView.setImageResource(R.drawable.lluviamoderada);
+                    imageView.setImageResource(R.drawable.lluvialigera);
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("tormenta")) {
                     imageView.setImageResource(R.drawable.tormenta);
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("llovizna ligera")) {
                     imageView.setImageResource(R.drawable.llovizna);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("chubasco")) {
+                    imageView.setImageResource(R.drawable.lluviamoderada);
                 } else {
                     imageView.setImageResource(R.drawable.ic_launcher_background);
                 }
