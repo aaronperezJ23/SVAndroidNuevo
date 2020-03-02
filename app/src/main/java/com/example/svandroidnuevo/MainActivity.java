@@ -169,10 +169,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         mCercania = sharedPreferences.getInt(CERCANIA, 100);
         mLongitud = sharedPreferences.getInt(LONGITUD, 100);
 
-        mENP = sharedPreferences.getBoolean(ENP_SW, false);
-        mSV = sharedPreferences.getBoolean(SV_SW, false);
-        mFM = sharedPreferences.getBoolean(FM_SW, false);
-        mVP = sharedPreferences.getBoolean(VP_SW, false);
+        mENP = sharedPreferences.getBoolean(ENP_SW, true);
+        mSV = sharedPreferences.getBoolean(SV_SW, true);
+        mFM = sharedPreferences.getBoolean(FM_SW, true);
+        mVP = sharedPreferences.getBoolean(VP_SW, true);
 
         Toast.makeText(this, String.valueOf(mCercania), Toast.LENGTH_SHORT).show();
     }

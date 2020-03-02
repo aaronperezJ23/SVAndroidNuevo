@@ -51,9 +51,13 @@ public class FiltrosActivity extends AppCompatActivity {
         mLongitudET = findViewById(R.id.etLongitud);
 
         mSendaSW = findViewById(R.id.swSV);
+        mSendaSW.setChecked(true);
         mEnpSW = findViewById(R.id.swEnp);
+        mEnpSW.setChecked(true);
         mFmSW = findViewById(R.id.swFm);
+        mFmSW.setChecked(true);
         mViaSW = findViewById(R.id.swVp);
+        mViaSW.setChecked(true);
 
         loadData();
         if(mCercaniaET.getText().equals(100)){
@@ -100,10 +104,10 @@ public class FiltrosActivity extends AppCompatActivity {
         mCercaniaET.setText(String.valueOf(sharedPreferences.getInt(CERCANIA, 100)));
         mLongitudET.setText(String.valueOf(sharedPreferences.getInt(LONGITUD, 100)));
 
-        mEnpSW.setChecked(sharedPreferences.getBoolean(ENP_SW, false));
-        mSendaSW.setChecked(sharedPreferences.getBoolean(SV_SW, false));
-        mFmSW.setChecked(sharedPreferences.getBoolean(FM_SW, false));
-        mViaSW.setChecked(sharedPreferences.getBoolean(VP_SW, false));
+        mEnpSW.setChecked(sharedPreferences.getBoolean(ENP_SW, true));
+        mSendaSW.setChecked(sharedPreferences.getBoolean(SV_SW, true));
+        mFmSW.setChecked(sharedPreferences.getBoolean(FM_SW, true));
+        mViaSW.setChecked(sharedPreferences.getBoolean(VP_SW, true));
 
     }
 
