@@ -112,28 +112,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         lv = findViewById(R.id.lista);
         this.setTitle(R.string.Titulo);
 
-        mNames = new ArrayList<String>();
-        mNames.add("Android");
-        mNames.add("iPhone");
-        mNames.add("Nokia");
-        mNames.add("Xiaomi");
-        mNames.add("Lenovo");
-        mNames.add("Huawei");
-        mNames.add("Zte");
-        mNames.add("Motorola");
-        mNames.add("Dell");
-
-        if (mListSimple) {
-            ArrayAdapter<String> adapter =
-                    new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mNames);
-
-            lv.setAdapter(adapter);
-
-        } else {
-            //myadapter = new MyAdapter(this, R.layout.descripcion_lista, mRutas);
-            //lv.setAdapter(myadapter);
-        }
-        //SI PULSAS QUE SALDRA UN MENSAJITO
+        //Te lleva a la descripcion de la lista
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -170,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 stopService(mServiceIntent);
             }
         });
-
+*/
         // Ask user permission for location.
         if (PackageManager.PERMISSION_GRANTED !=
                 ContextCompat.checkSelfPermission(MainActivity.this,
@@ -182,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         } else {
             startService();
-        }*/
+        }
     }
 
     private void loadData() {
@@ -213,7 +192,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         Log.i(TAG, "Activity onDestroy!");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
-
 
         super.onDestroy();
     }
@@ -248,37 +226,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             }
         }
     }
-
-    /*  REQUEST PERMISSIONS DE SERVICIOS
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_GPS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // Permission granted by user
-                    Toast.makeText(getApplicationContext(), "GPS Permission granted!",
-                            Toast.LENGTH_SHORT).show();
-
-                    startService();
-
-                } else {
-                    // permission denied
-                    Toast.makeText(getApplicationContext(),
-                            "Permission denied by user!", Toast.LENGTH_SHORT).show();
-                }
-                return;
-
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
-        }
-    }*/
 
     public void startService() {
 
@@ -424,13 +371,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.ordenar){
-        }else if(id == R.id.nombre){
-            Collections.sort(mRutasAux, new PulsarLista.cusComparatorNom());
+        }else if(id == R.id.nombre) {
+            Collections.sort(mRutas, new OrdenarLista.cusComparatorNom());
         }else if(id == R.id.longitud){
-            Collections.sort(mRutasAux, new PulsarLista.cusComparatorLong());
+            Collections.sort(mRutas, new OrdenarLista.cusComparatorLong());
         }else if(id == R.id.categoria){
-            Collections.sort(mRutasAux, new PulsarLista.cusComparatorCat());
-        }else if(id == R.id.filtra){
+            Collections.sort(mRutas, new OrdenarLista.cusComparatorCat());
+        }else if(id == R.id.filtra) {
             Intent mIntent = new Intent(this, FiltrosActivity.class);
             startActivity(mIntent);
         }else if(id == R.id.fav){

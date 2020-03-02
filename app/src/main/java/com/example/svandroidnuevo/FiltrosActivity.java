@@ -87,7 +87,7 @@ public class FiltrosActivity extends AppCompatActivity {
 
         editor.putBoolean(ENP_SW, mEnpSW.isChecked());
         editor.putBoolean(SV_SW, mSendaSW.isChecked());
-        editor.putBoolean(FM_SW, mEnpSW.isChecked());
+        editor.putBoolean(FM_SW, mFmSW.isChecked());
         editor.putBoolean(VP_SW, mViaSW.isChecked());
 
         editor.apply();

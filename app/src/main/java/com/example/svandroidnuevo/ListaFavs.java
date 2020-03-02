@@ -44,6 +44,7 @@ public class ListaFavs extends AppCompatActivity {
         myadapter = new MyAdapter(this, R.layout.descripcion_lista, mArray);
         lv.setAdapter(myadapter);
 
+
     }
 
     public class MyAdapter extends BaseAdapter {
@@ -101,7 +102,6 @@ public class ListaFavs extends AppCompatActivity {
                     imageView.setImageResource(R.drawable.ic_launcher_background);
                 }
             }
-
             return v;
         }
     }

@@ -17,9 +17,11 @@ public class HelperParser implements Serializable {
 
     private final String TAG = getClass().getSimpleName();
 
+
     public static class Localizacion implements Parcelable{
         public Double lat;
         public Double lon;
+        public Float distance = null;
 
         protected Localizacion(Parcel in) {
             if (in.readByte() == 0) {
