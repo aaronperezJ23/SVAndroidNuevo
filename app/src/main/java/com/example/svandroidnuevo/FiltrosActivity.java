@@ -42,7 +42,6 @@ public class FiltrosActivity extends AppCompatActivity {
 
     private Button mGuardar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +55,19 @@ public class FiltrosActivity extends AppCompatActivity {
         mFmSW = findViewById(R.id.swFm);
         mViaSW = findViewById(R.id.swVp);
 
+        loadData();
+        if(mCercaniaET.getText().equals(100)){
+            mCercaniaET.setText("");
+        }
+        if(mLongitudET.getText().equals(100)){
+            mLongitudET.setText("");
+        }
+
         mGuardar = findViewById(R.id.btnGuardar);
         mGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 saveData();
-
             }
         });
 
@@ -75,6 +80,7 @@ public class FiltrosActivity extends AppCompatActivity {
         if(!String.valueOf(mCercaniaET.getText()).equalsIgnoreCase("")) {
             editor.putInt(CERCANIA, Integer.parseInt(String.valueOf(mCercaniaET.getText())));
         }
+
         if(!String.valueOf(mLongitudET.getText()).equalsIgnoreCase("")) {
             editor.putInt(LONGITUD, Integer.parseInt(String.valueOf(mLongitudET.getText())));
         }
@@ -89,5 +95,16 @@ public class FiltrosActivity extends AppCompatActivity {
         Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
     }
 
+    private void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        mCercaniaET.setText(String.valueOf(sharedPreferences.getInt(CERCANIA, 100)));
+        mLongitudET.setText(String.valueOf(sharedPreferences.getInt(LONGITUD, 100)));
+
+        mEnpSW.setChecked(sharedPreferences.getBoolean(ENP_SW, false));
+        mSendaSW.setChecked(sharedPreferences.getBoolean(SV_SW, false));
+        mFmSW.setChecked(sharedPreferences.getBoolean(FM_SW, false));
+        mViaSW.setChecked(sharedPreferences.getBoolean(VP_SW, false));
+
+    }
 
 }

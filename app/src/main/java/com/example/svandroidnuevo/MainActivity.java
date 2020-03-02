@@ -497,11 +497,24 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     }
                     //mPd.dismiss();
+                    if(mRutasAux!=null){
+                        mRutasAux.clear();
+                    }
                     for (HelperParser.Ruta mRuta : mRutas) {
                         if(mRuta.getmLongitud()<mLongitud){
-                            if(mFM && mRuta.getmCategoria().equalsIgnoreCase("")) {
+                            if(mFM && mRuta.getmCategoria().equalsIgnoreCase("Federación de Montaña")) {
                                 mRutasAux.add(mRuta);
                             }
+                            if(mSV && mRuta.getmCategoria().equalsIgnoreCase("Sendas Verdes de Madrid")) {
+                                mRutasAux.add(mRuta);
+                            }
+                            if(mENP && mRuta.getmCategoria().equalsIgnoreCase("Rutas por la Red de Espacios Naturales Protegidos")) {
+                                mRutasAux.add(mRuta);
+                            }
+                            if(mVP && mRuta.getmCategoria().equalsIgnoreCase("Rutas por la Red de Vías Pecuarias")) {
+                                mRutasAux.add(mRuta);
+                            }
+                            Log.d(TAG, mRuta.getmCategoria());
                         }
                     }
 
