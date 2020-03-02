@@ -21,7 +21,11 @@
         <EditText
             android:id="@+id/etCercania"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="3"
+            android:hint="Longitud máxima (en km)"/>
 
     </LinearLayout>
     <LinearLayout
@@ -37,7 +41,11 @@
         <EditText
             android:id="@+id/etLongitud"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="3"
+            android:hint="Longitud máxima (en km)"/>
 
     </LinearLayout>
     <LinearLayout

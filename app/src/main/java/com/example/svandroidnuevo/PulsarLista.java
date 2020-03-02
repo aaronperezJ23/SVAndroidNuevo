@@ -150,10 +150,7 @@ public class PulsarLista extends AppCompatActivity {
 
     }
 
-    public void updateViews() {
-        /*textView.setText(text);
-        switch1.setChecked(switchOnOff);*/
-    }
+
 
 
     //Para que se ordene la lista dependiendo ya sea de la longitud, nombre o categoria
