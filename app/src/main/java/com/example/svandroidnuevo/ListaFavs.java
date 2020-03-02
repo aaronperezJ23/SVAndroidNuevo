@@ -52,8 +52,6 @@ public class ListaFavs extends AppCompatActivity {
                     new ArrayAdapter<HelperParser.Ruta>(this, android.R.layout.simple_list_item_1, mArray);
 
         lv.setAdapter(adapter);*/
-
-
     }
 
     public class MyAdapter extends BaseAdapter {
@@ -114,7 +112,6 @@ public class ListaFavs extends AppCompatActivity {
                     imageView.setImageResource(R.drawable.ic_launcher_background);
                 }
             }
-
             return v;
         }
     }
