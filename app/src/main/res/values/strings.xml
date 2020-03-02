@@ -21,5 +21,8 @@
 
     <string name="iniciar_ruta">Iniciar Ruta</string>
     <string name="longitud">Longitud</string>
+    <string name="ver_en_mapa">VER EN MAPA</string>
+    <string name="guardar_fav">GUARDAR FAV</string>
+    <string name="temp">Temp</string>
 
 </resources>
