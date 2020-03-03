@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SVAndroidNuevo</string>
+    <string name="app_name">Sendas Verdes </string>
     <string name="sendas_verdes">SENDAS\nVERDES</string>
     <string name="ordenar">Ordenar por:</string>
     <string name="fav">Favoritos</string>
@@ -16,13 +16,42 @@
     <string name="from">from</string>
     <string name="perezas">Perezas</string>
     <string name="Titulo">Sendas Verdes</string>
-
     <string name="OPEN_WEATHER_MAP_API_KEY">b61a80349d58cbfb2a5a60638ca6e87b</string>
-
     <string name="iniciar_ruta">Iniciar Ruta</string>
     <string name="longitud">Longitud</string>
-    <string name="ver_en_mapa">VER EN MAPA</string>
-    <string name="guardar_fav">GUARDAR FAV</string>
+    <string name="ver_en_mapa">VER EN MAPA </string>
+    <string name="guardar_fav">GUARDAR FAVORITO </string>
     <string name="temp">Temp</string>
-
+    <string name="longi">Longitud: %s kms</string>
+    <string name="cate">Categoria: %s</string>
+    <string name="ini">Inicio de la ruta: %s</string>
+    <string name="end">Fin de la ruta: %s</string>
+    <string name="tempe"> Temperatura: %s º</string>
+    <string name="aplicaci_n_creada_por">Aplicación creada por:</string>
+    <string name="nombres">Noelia Pérez\nAarón Pérez </string>
+    <string name="adquiriendo_dat">Adquiriendo datos...</string>
+    <string name="fm">Federación de Montaña</string>
+    <string name="sv">Sendas Verdes de Madrid</string>
+    <string name="enp">Rutas por la Red de Espacios Naturales Protegidos</string>
+    <string name="rvp">Rutas por la Red de Vías Pecuarias</string>
+    <string name="weather">Coordinates: %f , %f \n Weather Description: %s \n Temperature: %f \n Wind Speed: %f \n City, Country: %s, %s</string>
+    <string name="claro">cielo claro</string>
+    <string name="dispersas">nubes dispersas</string>
+    <string name="algoNubes">algo de nubes</string>
+    <string name="rotas">nubes rotas</string>
+    <string name="nubes">nubes</string>
+    <string name="lluLigera">lluvia ligera</string>
+    <string name="niebla">niebla</string>
+    <string name="nieve">nieve</string>
+    <string name="lluModerada">lluvia moderada</string>
+    <string name="tormenta">tormenta</string>
+    <string name="lloLigera">llovizna ligera</string>
+    <string name="deniedPermission">Permission denied by used</string>
+    <string name="grantedPermission">Permission granted</string>
+    <string name="inthepastPermi">[LOCATION] Permission granted in the past!</string>
+    <string name="onDestr">Activity onDestroy!</string>
+    <string name="brotcastReciv">BroadcastReceiver::Got message:</string>
+    <string name="servCreado">Servicio creado</string>
+    <string name="nuevaLocalizacion">New Location</string>
+    <string name="NewLocali">New Location:</string>
 </resources>
