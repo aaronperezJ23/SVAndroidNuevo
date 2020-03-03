@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         loadData();
         TestSSL();
-        //weatherInfo();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -124,14 +123,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             }
         });
 
-
-        /*  SERVICIOS
-
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter(HelperGlobal.INTENT_LOCALIZATION_ACTION));
-
-*/
         // Ask user permission for location.
         if (PackageManager.PERMISSION_GRANTED !=
                 ContextCompat.checkSelfPermission(MainActivity.this,
