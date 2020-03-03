@@ -480,7 +480,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 ruta.setmDescTiempo(currentWeather.getWeather().get(0).getDescription());
 
                 Log.v(TAG, getString(R.string.weather, currentWeather.getCoord().getLat(), currentWeather.getCoord().getLon(),
-                        currentWeather.getCoord().getLon(), currentWeather.getMain().getTempMax(), currentWeather.getWind().getSpeed(),
+                        currentWeather.getWeather().get(0).getDescription(), currentWeather.getMain().getTempMax(), currentWeather.getWind().getSpeed(),
                         currentWeather.getName(), currentWeather.getSys().getCountry())
                 );
             }

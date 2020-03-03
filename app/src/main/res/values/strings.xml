@@ -34,7 +34,7 @@
     <string name="sv">Sendas Verdes de Madrid</string>
     <string name="enp">Rutas por la Red de Espacios Naturales Protegidos</string>
     <string name="rvp">Rutas por la Red de Vías Pecuarias</string>
-    <string name="weather">Coordinates: 1%d , 2%d \n Weather Description: 3%d \n Temperature: 4%d \n Wind Speed: 5%d \n City, Country: 6%s, 7%s</string>
+    <string name="weather">Coordinates: %f , %f \n Weather Description: %s \n Temperature: %f \n Wind Speed: %f \n City, Country: %s, %s</string>
     <string name="claro">cielo claro</string>
     <string name="dispersas">nubes dispersas</string>
     <string name="algoNubes">algo de nubes</string>

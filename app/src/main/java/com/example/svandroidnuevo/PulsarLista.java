@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +63,9 @@ public class PulsarLista extends AppCompatActivity {
         textView2.setText(getString(R.string.longi, mRutaActual.getmLongitud().toString()));
 
         TextView textView3 = findViewById(R.id.textCategoria);
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            textView3.setText(Html.fromHtml("<h2>Title</h2><br><p>Description here</p>", Html.FROM_HTML_MODE_COMPACT));
+        }*/
         textView3.setText(getString(R.string.cate, mRutaActual.getmCategoria()));
 
         TextView textView4 = findViewById(R.id.textInicio);
