@@ -5,5 +5,8 @@
     <color name="colorAccent">#D81B60</color>
     <color name="splash">#1DE9B6</color>
     <color name="black">#000000</color>
-    <color name="FondoSplash">#F1F8E9</color>
+    <color name="fondoSplash">#F1F8E9</color>
+    <color name="actionBar">#FFC66C</color>
+    <color name="ntificationsBar">#E8A84E</color>
+    <color name="redondeo">#C0C0C0</color>
 </resources>

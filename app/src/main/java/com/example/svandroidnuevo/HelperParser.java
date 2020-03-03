@@ -3,20 +3,14 @@ package com.example.svandroidnuevo;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class HelperParser implements Serializable {
-
     private final String TAG = getClass().getSimpleName();
-
 
     public static class Localizacion implements Parcelable{
         public Double lat;
@@ -34,7 +28,6 @@ public class HelperParser implements Serializable {
             } else {
                 lon = in.readDouble();
             }
-
         }
 
         @Override
@@ -290,14 +283,12 @@ public class HelperParser implements Serializable {
                     for(int i = 0; i < coordenadas.length();i++){
                         JSONArray node = coordenadas.getJSONArray(i);
 
-                            loc[i] = new Localizacion(node.optDouble(0),node.optDouble(1));
-                             if(node.optJSONArray(i)!=null) {
-                                 for (int j = 0; j < node.optJSONArray(i).length(); j++) {
-                                     loc[i] = new Localizacion(node.optJSONArray(j).optDouble(0), node.optJSONArray(j).optDouble(1));
-                                 }
+                        loc[i] = new Localizacion(node.optDouble(0),node.optDouble(1));
+                        if(node.optJSONArray(i)!=null) {
+                             for (int j = 0; j < node.optJSONArray(i).length(); j++) {
+                                 loc[i] = new Localizacion(node.optJSONArray(j).optDouble(0), node.optJSONArray(j).optDouble(1));
                              }
-
-
+                        }
                     }
                 }
             }

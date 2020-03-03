@@ -4,42 +4,50 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="398dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_weight="0">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+        android:layout_weight="0"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/textNom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
+            android:textStyle="italic"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="@string/nombre"
+            android:layout_marginTop="10dp"
             android:textColor="#333"
             android:textSize="25sp" />
+        <ImageView
+            android:id="@+id/imageViewSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/lineaseparadora"
+            />
 
         <TextView
             android:id="@+id/textKms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textNom"
             android:layout_gravity="center_vertical"
             android:text="@string/kilometros"
+            android:layout_marginTop="30dp"
             android:textColor="#333"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            />
 
         <TextView
             android:id="@+id/textCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textKms"
             android:layout_gravity="center_vertical"
             android:text="@string/categoria"
+            android:layout_marginTop="10dp"
             android:textColor="#333"
             android:textSize="20sp" />
 
@@ -47,9 +55,9 @@
             android:id="@+id/textInicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textCategoria"
             android:layout_gravity="center_vertical"
             android:text="@string/inicio"
+            android:layout_marginTop="10dp"
             android:textColor="#333"
             android:textSize="20sp" />
 
@@ -57,48 +65,63 @@
             android:id="@+id/textFin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textInicio"
             android:layout_gravity="center_vertical"
             android:text="@string/fin"
+            android:layout_marginTop="10dp"
             android:textColor="#333"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textTemp"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textFin"
-            android:layout_gravity="center_vertical"
-            android:text="@string/temp"
-            android:textColor="#333"
-            android:textSize="20sp" />
-        <TextView
-            android:id="@+id/textDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textTemp"
-            android:layout_gravity="center_vertical"
-            android:textColor="#333"
-            android:textSize="20sp" />
-    </RelativeLayout>
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center">
+            <ImageView
+                android:id="@+id/imagenTiempo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_launcher_background"
+                />
+            <TextView
+                android:id="@+id/textTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/temp"
+                android:textColor="#333"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:gravity="bottom|center"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/botonMapa"
+            android:background="@drawable/redondeoboton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ver_en_mapa" />
+            android:text="@string/ver_en_mapa"
+            android:layout_marginBottom="10dp"
+            android:drawableRight="@drawable/rutal"
+            android:padding="5dp"
+            />
         <Button
             android:id="@+id/botonFav"
+            android:background="@drawable/redondeoboton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/guardar_fav" />
+            android:text="@string/guardar_fav"
+            android:drawableRight="@drawable/estrella"
+            android:padding="5dp"/>
     </LinearLayout>
 
 </LinearLayout>

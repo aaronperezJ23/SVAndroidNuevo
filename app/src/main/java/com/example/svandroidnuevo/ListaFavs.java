@@ -90,14 +90,28 @@ public class ListaFavs extends AppCompatActivity {
 
 
             if(rutas.get(i).getmDescTiempo()!=null) {
-                if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("cielo claro")) {
-                    imageView.setImageResource(R.drawable.season);
-                } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nubes dispersas")) {
-                    imageView.setImageResource(R.drawable.cloud);
-                } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("algo de nubes")) {
-                    imageView.setImageResource(R.drawable.forecast);
-                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nubes rotas")) {
-                    imageView.setImageResource(R.drawable.forecast);
+                if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.claro))) {
+                    imageView.setImageResource(R.drawable.cieloclaro);
+                } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.dispersas))) {
+                    imageView.setImageResource(R.drawable.nubess);
+                } else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.algoNubes))) {
+                    imageView.setImageResource(R.drawable.algonubes);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.rotas))) {
+                    imageView.setImageResource(R.drawable.nubesrotas);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.nubes))) {
+                    imageView.setImageResource(R.drawable.nubes);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.lluLigera))) {
+                    imageView.setImageResource(R.drawable.lluviamoderada);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.niebla))) {
+                    imageView.setImageResource(R.drawable.niebla);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.nieve))) {
+                    imageView.setImageResource(R.drawable.nieve);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.lluModerada))) {
+                    imageView.setImageResource(R.drawable.lluvialigera);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.tormenta))) {
+                    imageView.setImageResource(R.drawable.tormenta);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.lloLigera))) {
+                    imageView.setImageResource(R.drawable.llovizna);
                 } else {
                     imageView.setImageResource(R.drawable.ic_launcher_background);
                 }

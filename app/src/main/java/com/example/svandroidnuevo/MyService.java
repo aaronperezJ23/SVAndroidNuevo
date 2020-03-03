@@ -30,7 +30,6 @@ public class MyService extends Service implements LocationListener {
     private LocationManager mLocManager = null;
     Location rutaLoc = new Location("");
 
-
     public MyService() {
     }
 
@@ -44,7 +43,7 @@ public class MyService extends Service implements LocationListener {
     public void onCreate() {
         super.onCreate();
 
-        Log.d(TAG, "Servicio creado");
+        Log.d(TAG, getString(R.string.servCreado));
 
     }
 
@@ -131,9 +130,9 @@ public class MyService extends Service implements LocationListener {
 
         //float distancia = location.distanceTo(rutaLoc);
         Intent intent = new Intent(HelperGlobal.INTENT_LOCALIZATION_ACTION);
-        intent.putExtra(HelperGlobal.KEY_MESSAGE, "New Location");
+        intent.putExtra(HelperGlobal.KEY_MESSAGE, R.string.nuevaLocalizacion);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-        Log.d(TAG, "New Location: " +
+        Log.d(TAG, getString(R.string.NewLocali) +
                 location.getLatitude() + ", " +
                 location.getLongitude());
     }
