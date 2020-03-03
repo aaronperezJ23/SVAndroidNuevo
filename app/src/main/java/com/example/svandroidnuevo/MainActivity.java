@@ -131,22 +131,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter(HelperGlobal.INTENT_LOCALIZATION_ACTION));
 
-
-        Button bt1 = findViewById(R.id.btStart);
-        bt1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startService();
-            }
-        });
-
-        Button bt2 = findViewById(R.id.btStop);
-        bt2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stopService(mServiceIntent);
-            }
-        });
 */
         // Ask user permission for location.
         if (PackageManager.PERMISSION_GRANTED !=
