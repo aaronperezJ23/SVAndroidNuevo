@@ -387,7 +387,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     Log.d(TAG, response.toString());
                     HelperParser myparser = new HelperParser();
-                    mRutas = myparser.parseRutas(response.body().string());
+                    if(mRutas==null) {
+                        mRutas = myparser.parseRutas(response.body().string());
+                    }
                     Log.d(TAG,String.valueOf(mRutas.isEmpty()));
 
                     for (HelperParser.Ruta mRuta : mRutas) {
@@ -398,7 +400,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             Location locats = new Location("");
                             locats.setLatitude(loc[0]);
                             locats.setLongitude(loc[1]);
-                            mRuta.setmCercania(mCurrentLocation.distanceTo(locats));
+                            if(mCurrentLocation!=null){
+                                mRuta.setmCercania(mCurrentLocation.distanceTo(locats));
+                            }
                             weatherInfo(loc[0], loc[1], mRuta);
                             //System.out.println(mRuta.getmDescTiempo());
                             /*try {
