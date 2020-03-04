@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.lloLigera))) {
                     imageView.setImageResource(R.drawable.llovizna);
                 } else {
-                    imageView.setImageResource(R.drawable.ic_launcher_background);
+                    imageView.setImageResource(R.drawable.mitadluna);
                 }
             }
 

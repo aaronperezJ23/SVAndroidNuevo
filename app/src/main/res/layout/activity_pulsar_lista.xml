@@ -81,7 +81,7 @@
                 android:id="@+id/imagenTiempo"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/mitadluna"
                 />
             <TextView
                 android:id="@+id/textTemp"
