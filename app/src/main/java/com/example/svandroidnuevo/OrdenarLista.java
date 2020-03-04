@@ -10,6 +10,12 @@ public class OrdenarLista {
             return o1.getmLongitud().compareTo(o2.getmLongitud());
         }
     }
+    public static class cusComparatorCerc implements Comparator<HelperParser.Ruta> {
+        @Override
+        public int compare(HelperParser.Ruta o1, HelperParser.Ruta o2) {
+            return Float.compare(o1.getmCercania(),o2.getmCercania());
+        }
+    }
     public static class cusComparatorNom implements Comparator<HelperParser.Ruta> {
         @Override
         public int compare(HelperParser.Ruta o1, HelperParser.Ruta o2) {

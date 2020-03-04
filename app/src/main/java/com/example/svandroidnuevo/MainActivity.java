@@ -443,6 +443,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Collections.sort(mRutasAux,new OrdenarLista.cusComparatorCerc());
                         myadapter=new MyAdapter(MainActivity.this, R.layout.descripcion_lista,mRutasAux);
                         lv.setAdapter(myadapter);
                         }
