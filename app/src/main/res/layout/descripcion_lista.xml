@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="85dp">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -41,5 +41,13 @@
             android:layout_gravity="center_vertical"
             android:layout_below="@id/textKms"
             android:text="@string/valoracion"/>
+        <TextView
+            android:id="@+id/textCercania"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@id/textValoracion"
+            android:text="Distancia"/>
     </RelativeLayout>
 </LinearLayout>

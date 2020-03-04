@@ -275,6 +275,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             TextView textView2 = (TextView) v.findViewById(R.id.textKms);
             textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
 
+            TextView textView4 = (TextView) v.findViewById(R.id.textCercania);
+            textView4.setText(rutas.get(i).getmCercania() + " metros");
+
             TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
             textView3.setText(rutas.get(i).getmCategoria());
             ImageView imageView = v.findViewById(R.id.imageView2);

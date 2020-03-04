@@ -55,7 +55,7 @@ public class MyService extends Service implements LocationListener {
     public void onCreate() {
         super.onCreate();
 
-        loadData();
+        //loadData();
         Log.d(TAG, getString(R.string.servCreado));
 
     }
@@ -157,7 +157,8 @@ public class MyService extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        //loadData();
+        mArrayRutas.clear();
+        loadData();
 
         for (HelperParser.Ruta mRuta : mArrayRutas) {
             HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
