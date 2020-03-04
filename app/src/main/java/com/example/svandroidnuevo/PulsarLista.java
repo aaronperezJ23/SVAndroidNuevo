@@ -60,22 +60,24 @@ public class PulsarLista extends AppCompatActivity {
         TextView textView1 = findViewById(R.id.textNom);
         textView1.setText(mRutaActual.getmName());
         TextView textView2 = findViewById(R.id.textKms);
-        textView2.setText(getString(R.string.longi, mRutaActual.getmLongitud().toString()));
+        textView2.setText(getString(R.string.kms, mRutaActual.getmLongitud().toString()));
 
         TextView textView3 = findViewById(R.id.textCategoria);
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            textView3.setText(Html.fromHtml("<h2>Title</h2><br><p>Description here</p>", Html.FROM_HTML_MODE_COMPACT));
+            textView3.setText(Html.fromHtml("<h2>"+R.string.cate+"</h2>" + mRutaActual.getmCategoria(), Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            textView3.setText(Html.fromHtml("<h2>"+R.string.cate+"</h2>" + mRutaActual.getmCategoria()));
         }*/
-        textView3.setText(getString(R.string.cate, mRutaActual.getmCategoria()));
+        textView3.setText(mRutaActual.getmCategoria());
 
         TextView textView4 = findViewById(R.id.textInicio);
-        textView4.setText(getString(R.string.ini, mRutaActual.getmInicio()));
+        textView4.setText(mRutaActual.getmInicio());
 
         TextView textView5 = findViewById(R.id.textFin);
-        textView5.setText(getString(R.string.end, mRutaActual.getmFinal()));
+        textView5.setText(mRutaActual.getmFinal());
 
         TextView textView6 = findViewById(R.id.textTemp);
-        textView6.setText(getString(R.string.tempe, String.valueOf(mRutaActual.getmTemperatura())));
+        textView6.setText(getString(R.string.grados, String.valueOf(mRutaActual.getmTemperatura())));
 
         ImageView imageView = findViewById(R.id.imagenTiempo);
 
