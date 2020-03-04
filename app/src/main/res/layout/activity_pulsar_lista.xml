@@ -4,7 +4,7 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -14,7 +14,7 @@
             android:id="@+id/textNom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
             android:textStyle="italic"
             android:textAlignment="center"
             android:fontFamily="sans-serif-condensed-medium"
@@ -26,27 +26,73 @@
             android:id="@+id/imageViewSeparator"
             android:layout_width="match_parent"
             android:layout_height="2dp"
+            android:layout_below="@id/textNom"
             android:layout_marginTop="5dp"
             android:src="@drawable/lineaseparadora"
             />
 
         <TextView
-            android:id="@+id/textKms"
+            android:id="@+id/textoKms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/kilometros"
+            android:layout_marginEnd="5dp"
+            android:text="@string/longi"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:layout_below="@id/imageViewSeparator"
             android:layout_marginTop="30dp"
             android:textColor="#333"
             android:textSize="20sp"
             />
 
         <TextView
+            android:id="@+id/textKms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/textoKms"
+            android:layout_gravity="center_vertical"
+            android:text="@string/kilometros"
+            android:fontFamily="sans-serif-condensed-light"
+            android:layout_below="@id/imageViewSeparator"
+            android:layout_marginTop="30dp"
+            android:textColor="#333"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/textoCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/cate"
+            android:layout_below="@id/textKms"
+            android:layout_marginTop="10dp"
+            android:textColor="#333"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="20sp" />
+        <TextView
             android:id="@+id/textCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@id/textoCategoria"
+            android:fontFamily="sans-serif-condensed-light"
             android:text="@string/categoria"
+            android:layout_below="@id/textKms"
+            android:layout_marginTop="10dp"
+            android:textColor="#333"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textoInicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/ini"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:layout_marginEnd="5dp"
+            android:layout_below="@id/textCategoria"
             android:layout_marginTop="10dp"
             android:textColor="#333"
             android:textSize="20sp" />
@@ -57,6 +103,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/inicio"
+            android:fontFamily="sans-serif-condensed-light"
+            android:layout_toEndOf="@id/textoInicio"
+            android:layout_below="@id/textCategoria"
+            android:layout_marginTop="10dp"
+            android:textColor="#333"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textoFin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/end"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:layout_marginEnd="5dp"
+            android:layout_below="@id/textInicio"
             android:layout_marginTop="10dp"
             android:textColor="#333"
             android:textSize="20sp" />
@@ -67,6 +129,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/fin"
+            android:fontFamily="sans-serif-condensed-light"
+            android:layout_toEndOf="@id/textoFin"
+            android:layout_below="@id/textInicio"
             android:layout_marginTop="10dp"
             android:textColor="#333"
             android:textSize="20sp" />
@@ -76,7 +141,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center">
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/textFin">
             <ImageView
                 android:id="@+id/imagenTiempo"
                 android:layout_width="60dp"
@@ -94,7 +160,7 @@
         </LinearLayout>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -102,7 +168,7 @@
         android:layout_weight="1"
         android:gravity="bottom|center"
         android:layout_margin="20dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/botonMapa"
@@ -110,9 +176,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ver_en_mapa"
-            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
             android:drawableRight="@drawable/rutal"
-            android:padding="5dp"
+            android:paddingEnd="20dp"
+            android:paddingLeft="20dp"
             />
         <Button
             android:id="@+id/botonFav"
