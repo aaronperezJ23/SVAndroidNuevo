@@ -219,7 +219,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
-
+        mCurrentLocation=location;
+        Log.d(TAG, mCurrentLocation.toString());
     }
 
     @Override
