@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -44,7 +45,17 @@ public class ListaFavs extends AppCompatActivity {
         myadapter = new MyAdapter(this, R.layout.descripcion_lista, mArray);
         lv.setAdapter(myadapter);
 
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
+                Intent intent = new Intent(ListaFavs.this, PulsarLista.class);
+                HelperParser.Ruta rutita = mArray.get(position);
+                intent.putExtra("rutaActual", rutita);
+                startActivity(intent);
+
+            }
+        });
     }
 
     public class MyAdapter extends BaseAdapter {
