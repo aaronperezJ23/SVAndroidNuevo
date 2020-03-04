@@ -395,6 +395,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         for (HelperParser.Localizacion localizacion1 : localizacion) {
                             double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(),localizacion1.getLon()));
                             //System.out.println(mRuta.getmName() + ", Latitud: " + loc[0] + ", Longitud: " + loc[1]);
+                            Location locats = new Location("");
+                            locats.setLatitude(loc[0]);
+                            locats.setLongitude(loc[1]);
+                            mRuta.setmCercania(mCurrentLocation.distanceTo(locats));
                             weatherInfo(loc[0], loc[1], mRuta);
                             //System.out.println(mRuta.getmDescTiempo());
                             /*try {
@@ -411,7 +415,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         mRutasAux.clear();
                     }
                     for (HelperParser.Ruta mRuta : mRutas) {
-                        if(mRuta.getmLongitud()<mLongitud){
+                        Log.d(TAG, String.valueOf(mCercania + "-" + mRuta.getmCercania()));
+                        if(mRuta.getmLongitud()<mLongitud && mRuta.getmCercania()<mCercania*1000){
                             if(mFM && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.fm))) {
                                 mRutasAux.add(mRuta);
                             }

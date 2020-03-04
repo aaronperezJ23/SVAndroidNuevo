@@ -108,6 +108,7 @@ public class HelperParser implements Serializable {
 
         public double mTemperatura;
         public String mDescTiempo;
+        public float mCercania;
 
         public Ruta(String mName, String mCategoria, Integer mLongitud, String mInicio, String mFinal, String mENP, String mColorFill, String mColorStroke, Localizacion[] mLocalizaciones) {
             this.mName = mName;
@@ -138,6 +139,7 @@ public class HelperParser implements Serializable {
             mLocalizaciones = in.createTypedArray(Localizacion.CREATOR);
             mTemperatura = in.readDouble();
             mDescTiempo = in.readString();
+            mCercania = in.readFloat();
         }
 
         @Override
@@ -158,6 +160,7 @@ public class HelperParser implements Serializable {
             dest.writeTypedArray(mLocalizaciones, flags);
             dest.writeDouble(mTemperatura);
             dest.writeString(mDescTiempo);
+            dest.writeFloat(mCercania);
         }
 
         @Override
@@ -240,6 +243,14 @@ public class HelperParser implements Serializable {
 
         public String getmDescTiempo() {
             return mDescTiempo;
+        }
+
+        public float getmCercania() {
+            return mCercania;
+        }
+
+        public void setmCercania(float mCercania) {
+            this.mCercania = mCercania;
         }
     }
 
