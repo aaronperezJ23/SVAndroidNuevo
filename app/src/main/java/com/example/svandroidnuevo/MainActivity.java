@@ -96,7 +96,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
         super.onResume();
         if(mRutas!=null) {
             loadData();
-            //TestSSL();
+            TestSSL();
             /*if(mPd.isShowing()){
                 mPd.dismiss();
             }*/
@@ -140,6 +140,9 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
 
         } else {
             startService();
+            if(mRutas==null){
+                TestSSL();
+            }
             permitido=true;
             //if(mPd.isShowing()){
               //  mPd.dismiss();
@@ -335,7 +338,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.overflowmenu, menu);
 
-        final MenuItem searchItem = menu.findItem(R.id.buscar);
+        /*final MenuItem searchItem = menu.findItem(R.id.buscar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         //permite modificar el hint que el EditText muestra por defecto
         searchView.setQueryHint(getText(R.string.buscar));
@@ -351,7 +354,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
-        });
+        });*/
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -3,14 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <item
-        android:id="@+id/buscar"
-        android:icon="@drawable/buscando"
-        android:title="@string/buscar"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="collapseActionView|ifRoom"
-        android:enabled="false"/>
-
     <item android:id="@+id/ordenar" android:title="@string/ordenar">
         <menu>
             <item android:id="@+id/nombre" android:title="@string/nombre"/>
