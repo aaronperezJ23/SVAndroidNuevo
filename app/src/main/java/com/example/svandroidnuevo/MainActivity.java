@@ -359,11 +359,11 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
         int id = item.getItemId();
         if(id == R.id.ordenar){
         }else if(id == R.id.nombre) {
-            Collections.sort(mRutas, new OrdenarLista.cusComparatorNom());
+            Collections.sort(mRutasAux, new OrdenarLista.cusComparatorNom());
         }else if(id == R.id.longitud){
-            Collections.sort(mRutas, new OrdenarLista.cusComparatorLong());
+            Collections.sort(mRutasAux, new OrdenarLista.cusComparatorLong());
         }else if(id == R.id.categoria){
-            Collections.sort(mRutas, new OrdenarLista.cusComparatorCat());
+            Collections.sort(mRutasAux, new OrdenarLista.cusComparatorCat());
         }else if(id == R.id.filtra) {
             Intent mIntent = new Intent(this, FiltrosActivity.class);
             startActivity(mIntent);
