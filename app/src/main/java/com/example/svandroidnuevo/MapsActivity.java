@@ -10,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -50,6 +51,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        UiSettings uiSettings = googleMap.getUiSettings();
+        uiSettings.setMyLocationButtonEnabled(true);
+        uiSettings.setZoomControlsEnabled(true);
+
         double[] locInit =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(mRutaActual.getmLocalizacion()[0].getLat(),mRutaActual.getmLocalizacion()[0].getLon()));
 
         PolylineOptions polylineOptions = new PolylineOptions();
@@ -75,6 +80,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Polyline polyline1 = googleMap.addPolyline(polylineOptions);
 
+        mMap.setMyLocationEnabled(true);
 
     }
 }
