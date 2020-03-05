@@ -97,9 +97,6 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
         if(mRutas!=null) {
             loadData();
             TestSSL();
-            /*if(mPd.isShowing()){
-                mPd.dismiss();
-            }*/
         }
     }
 
@@ -140,9 +137,8 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
 
         } else {
             startService();
-            if(mRutas==null){
-                TestSSL();
-            }
+            //loadData();
+            TestSSL();
             permitido=true;
             //if(mPd.isShowing()){
               //  mPd.dismiss();
@@ -235,7 +231,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
         mCurrentLocation=location;
         Log.d(TAG, mCurrentLocation.toString());
 
-        if(permitido){
+        if(permitido && mRutas!=null){
             TestSSL();
         }
     }
@@ -391,9 +387,12 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
                 .url("https://datos.comunidad.madrid/catalogo/dataset/66784709-f106-4906-bf37-8c46c6033f54/resource/d37614e5-22c1-41b6-9334-66e7ee61975c/download/spacmsendasnaturaleza.json")
                 .build();
 
-        mPd = new ProgressDialog(MainActivity.this);
-        mPd.setTitle(getString(R.string.adquiriendo_dat));
-        mPd.show();
+        if(mRutas==null){
+            mPd = new ProgressDialog(MainActivity.this);
+            mPd.setTitle(getString(R.string.adquiriendo_dat));
+            mPd.show();
+        }
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -413,7 +412,6 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
                     if(mRutas==null) {
                         mRutas = myparser.parseRutas(response.body().string());
                     }
-                    Log.d(TAG,String.valueOf(mRutas.isEmpty()));
 
                     for (HelperParser.Ruta mRuta : mRutas) {
                         HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
@@ -427,12 +425,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
                                 mRuta.setmCercania(mCurrentLocation.distanceTo(locats));
                             }
                             weatherInfo(loc[0], loc[1], mRuta);
-                            //System.out.println(mRuta.getmDescTiempo());
-                            /*try {
-                                Thread.sleep(40);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }*/
+
                             break;
                         }
 
@@ -465,19 +458,18 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
                             Collections.sort(mRutasAux,new OrdenarLista.cusComparatorCerc());
                             myadapter=new MyAdapter(MainActivity.this, R.layout.descripcion_lista,mRutasAux);
                             lv.setAdapter(myadapter);
+                            if(mPd.isShowing()){
+                                mPd.dismiss();
+                            }
                         }
                     });
-                    //if(mPd.isShowing()){
-                        mPd.dismiss();
-                    //}
+
 
 
                 }
-                mPd.dismiss();
-            }
+         }
 
         });
-
     }
 
     private void weatherInfo(double lat, double lon, final HelperParser.Ruta ruta){
