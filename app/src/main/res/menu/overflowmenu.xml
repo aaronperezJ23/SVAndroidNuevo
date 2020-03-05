@@ -8,7 +8,8 @@
         android:icon="@drawable/buscando"
         android:title="@string/buscar"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="collapseActionView|ifRoom" />
+        app:showAsAction="collapseActionView|ifRoom"
+        android:enabled="false"/>
 
     <item android:id="@+id/ordenar" android:title="@string/ordenar">
         <menu>

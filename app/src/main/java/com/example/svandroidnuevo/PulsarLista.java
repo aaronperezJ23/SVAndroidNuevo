@@ -54,6 +54,7 @@ public class PulsarLista extends AppCompatActivity {
 
         Intent intent = getIntent();
         mRutaActual = (HelperParser.Ruta) intent.getParcelableExtra("rutaActual");
+
         //Log.d("HOLA", mRutaActual.getmCategoria());
 
 
@@ -104,8 +105,10 @@ public class PulsarLista extends AppCompatActivity {
                 imageView.setImageResource(R.drawable.tormenta);
             }else if (mRutaActual.getmDescTiempo().equalsIgnoreCase(getString(R.string.lloLigera))) {
                 imageView.setImageResource(R.drawable.llovizna);
+            }else if (mRutaActual.getmDescTiempo().equalsIgnoreCase("nada")) {
+                imageView.setImageResource(R.drawable.error);
             } else {
-                imageView.setImageResource(R.drawable.ic_launcher_background);
+                imageView.setImageResource(R.drawable.error);
             }
         }
 
@@ -119,6 +122,7 @@ public class PulsarLista extends AppCompatActivity {
                 botonFav.setEnabled(false);
             }
         });
+        botonFav.setEnabled(intent.getBooleanExtra("favorito", false));
     }
 
     public void saveData(){

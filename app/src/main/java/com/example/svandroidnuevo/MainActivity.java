@@ -52,7 +52,7 @@ import java.util.Collections;
 
 import javax.net.ssl.SSLContext;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class  MainActivity extends AppCompatActivity implements LocationListener {
 
     private final static int MY_PERMISSIONS_GPS_FINE_LOCATION = 1;
     Intent mServiceIntent;
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         setTheme(R.style.AppTheme);
 
         loadData();
-        TestSSL();
+        //TestSSL();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Intent intent = new Intent(MainActivity.this, PulsarLista.class);
             HelperParser.Ruta rutita = mRutasAux.get(position);
             intent.putExtra("rutaActual", rutita);
+            intent.putExtra("favorito", true);
             startActivity(intent);
 
             }
@@ -134,6 +135,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         } else {
             startService();
+            TestSSL();
+            if(mPd.isShowing()){
+                mPd.dismiss();
+            }
         }
     }
 
@@ -221,6 +226,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void onLocationChanged(Location location) {
         mCurrentLocation=location;
         Log.d(TAG, mCurrentLocation.toString());
+
+        TestSSL();
     }
 
     @Override
@@ -305,8 +312,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     imageView.setImageResource(R.drawable.tormenta);
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.lloLigera))) {
                     imageView.setImageResource(R.drawable.llovizna);
+                }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase("nada")) {
+                    imageView.setImageResource(R.drawable.error);
                 } else {
-                    imageView.setImageResource(R.drawable.mitadluna);
+                    imageView.setImageResource(R.drawable.error);
                 }
             }
 
@@ -379,6 +388,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void onFailure(Request request, IOException e) {
                 Log.e(TAG, request.toString());
+                //mPd.dismiss();
             }
 
             @Override
@@ -417,7 +427,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         }
 
                     }
-                    //mPd.dismiss();
                     if(mRutasAux!=null){
                         mRutasAux.clear();
                     }
@@ -444,11 +453,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         @Override
                         public void run() {
                             Collections.sort(mRutasAux,new OrdenarLista.cusComparatorCerc());
-                        myadapter=new MyAdapter(MainActivity.this, R.layout.descripcion_lista,mRutasAux);
-                        lv.setAdapter(myadapter);
+                            myadapter=new MyAdapter(MainActivity.this, R.layout.descripcion_lista,mRutasAux);
+                            lv.setAdapter(myadapter);
                         }
                     });
-                    mPd.dismiss();
+                    //if(mPd.isShowing()){
+                        mPd.dismiss();
+                    //}
+
+
                 }
             }
         });
@@ -477,6 +490,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void onFailure(Throwable throwable) {
                 Log.v(TAG, throwable.getMessage());
+                ruta.setmTemperatura(0.0);
+                ruta.setmDescTiempo("nada");
             }
         });
     }

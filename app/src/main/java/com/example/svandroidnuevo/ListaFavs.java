@@ -52,6 +52,7 @@ public class ListaFavs extends AppCompatActivity {
                 Intent intent = new Intent(ListaFavs.this, PulsarLista.class);
                 HelperParser.Ruta rutita = mArray.get(position);
                 intent.putExtra("rutaActual", rutita);
+                intent.putExtra("favorito", false);
                 startActivity(intent);
 
             }
@@ -127,7 +128,7 @@ public class ListaFavs extends AppCompatActivity {
                 }else if (rutas.get(i).getmDescTiempo().equalsIgnoreCase(getString(R.string.lloLigera))) {
                     imageView.setImageResource(R.drawable.llovizna);
                 } else {
-                    imageView.setImageResource(R.drawable.ic_launcher_background);
+                    imageView.setImageResource(R.drawable.error);
                 }
             }
             return v;
