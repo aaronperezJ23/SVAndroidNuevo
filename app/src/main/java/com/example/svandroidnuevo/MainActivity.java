@@ -424,7 +424,10 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
                             if(mCurrentLocation!=null){
                                 mRuta.setmCercania(mCurrentLocation.distanceTo(locats));
                             }
-                            weatherInfo(loc[0], loc[1], mRuta);
+                            if(mRuta.getmDescTiempo()==null){
+                                weatherInfo(loc[0], loc[1], mRuta);
+                            }
+
 
                             break;
                         }
