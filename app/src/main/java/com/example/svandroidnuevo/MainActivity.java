@@ -458,9 +458,12 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
                             Collections.sort(mRutasAux,new OrdenarLista.cusComparatorCerc());
                             myadapter=new MyAdapter(MainActivity.this, R.layout.descripcion_lista,mRutasAux);
                             lv.setAdapter(myadapter);
-                            if(mPd.isShowing()){
-                                mPd.dismiss();
+                            if(mPd!=null){
+                                if(mPd.isShowing()){
+                                    mPd.dismiss();
+                                }
                             }
+
                         }
                     });
 
