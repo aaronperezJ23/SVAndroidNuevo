@@ -89,12 +89,17 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
     private static Boolean mFM;
     private static Boolean mVP;
 
+    private static Boolean permitido=false;
+
     @Override
     protected void onResume() {
         super.onResume();
         if(mRutas!=null) {
             loadData();
-            TestSSL();
+            //TestSSL();
+            /*if(mPd.isShowing()){
+                mPd.dismiss();
+            }*/
         }
     }
 
@@ -135,10 +140,10 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
 
         } else {
             startService();
-            TestSSL();
-            if(mPd.isShowing()){
-                mPd.dismiss();
-            }
+            permitido=true;
+            //if(mPd.isShowing()){
+              //  mPd.dismiss();
+            //}
         }
     }
 
@@ -227,7 +232,9 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
         mCurrentLocation=location;
         Log.d(TAG, mCurrentLocation.toString());
 
-        TestSSL();
+        if(permitido){
+            TestSSL();
+        }
     }
 
     @Override
@@ -463,7 +470,9 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
 
 
                 }
+                mPd.dismiss();
             }
+
         });
 
     }
