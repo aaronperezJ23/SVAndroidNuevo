@@ -59,6 +59,14 @@ public class ListaFavs extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent returnIntent = new Intent();
+        setResult(RESULT_OK, returnIntent);
+    }
+
     public class MyAdapter extends BaseAdapter {
 
         private Context context;

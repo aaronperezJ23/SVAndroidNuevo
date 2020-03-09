@@ -1,6 +1,7 @@
 package com.example.svandroidnuevo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -8,6 +9,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -94,10 +96,10 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
     @Override
     protected void onResume() {
         super.onResume();
-        if(mRutas!=null) {
+        /*if(mRutas!=null) {
             loadData();
             TestSSL();
-        }
+        }*/
     }
 
     @Override
@@ -121,7 +123,8 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
             HelperParser.Ruta rutita = mRutasAux.get(position);
             intent.putExtra("rutaActual", rutita);
             intent.putExtra("favorito", true);
-            startActivity(intent);
+            //startActivity(intent);
+                startActivityForResult(intent, 2);
 
             }
         });
@@ -137,12 +140,31 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
 
         } else {
             startService();
-            //loadData();
+            loadData();
             TestSSL();
             permitido=true;
             //if(mPd.isShowing()){
               //  mPd.dismiss();
             //}
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if(requestCode==2){
+                //Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
+                loadData();
+                TestSSL();
+            }else if(requestCode==3){
+                loadData();
+                TestSSL();
+            }else if(requestCode==4){
+                loadData();
+                TestSSL();
+            }
         }
     }
 
@@ -198,7 +220,8 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
                 if (grantResults.length > 0 && grantResults[0] ==  PackageManager.PERMISSION_GRANTED){
                     Toast.makeText(getApplicationContext(), R.string.grantedPermission, Toast.LENGTH_LONG).show();
                     startLocation();
-                    //startService();
+                    startService();
+                    TestSSL();
                 }else{
                     Toast.makeText(getApplicationContext(), R.string.deniedPermission, Toast.LENGTH_LONG).show();
                 }
@@ -366,10 +389,10 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
             Collections.sort(mRutasAux, new OrdenarLista.cusComparatorCat());
         }else if(id == R.id.filtra) {
             Intent mIntent = new Intent(this, FiltrosActivity.class);
-            startActivity(mIntent);
+            startActivityForResult(mIntent,3);
         }else if(id == R.id.fav){
             Intent mIntent = new Intent(this, ListaFavs.class);
-            startActivity(mIntent);
+            startActivityForResult(mIntent, 4);
         }else if(id == R.id.ayuda){
             Intent mIntent = new Intent(this, Ayuda.class);
             startActivity(mIntent);
@@ -461,6 +484,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
                             Collections.sort(mRutasAux,new OrdenarLista.cusComparatorCerc());
                             myadapter=new MyAdapter(MainActivity.this, R.layout.descripcion_lista,mRutasAux);
                             lv.setAdapter(myadapter);
+
                             if(mPd!=null){
                                 if(mPd.isShowing()){
                                     mPd.dismiss();

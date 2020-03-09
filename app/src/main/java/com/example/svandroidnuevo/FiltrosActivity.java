@@ -111,4 +111,11 @@ public class FiltrosActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent returnIntent = new Intent();
+        setResult(RESULT_OK, returnIntent);
+    }
 }

@@ -36,6 +36,14 @@ public class PulsarLista extends AppCompatActivity {
     public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent returnIntent = new Intent();
+        setResult(RESULT_OK, returnIntent);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pulsar_lista);
