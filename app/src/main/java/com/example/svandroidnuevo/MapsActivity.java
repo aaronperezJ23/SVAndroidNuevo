@@ -66,16 +66,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng local = new LatLng(locInit[0], locInit[1]);
         mMap.addMarker(new MarkerOptions().position(local));
         float zoomLevel = 11.0f;
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(local));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(local, zoomLevel));
 
         HelperParser.Localizacion[] localizacion = mRutaActual.getmLocalizacion();
         for (HelperParser.Localizacion localizacion1 : localizacion) {
             double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(),localizacion1.getLon()));
-            //local = new LatLng(loc[0],loc[1]);
-            //mMap.addMarker(new MarkerOptions().position(local));
             polylineOptions.add(new LatLng(loc[0],loc[1]));
-
         }
 
         Polyline polyline1 = googleMap.addPolyline(polylineOptions);

@@ -95,8 +95,6 @@ public class FiltrosActivity extends AppCompatActivity {
         editor.putBoolean(VP_SW, mViaSW.isChecked());
 
         editor.apply();
-
-        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
     }
 
     private void loadData() {
@@ -108,7 +106,6 @@ public class FiltrosActivity extends AppCompatActivity {
         mSendaSW.setChecked(sharedPreferences.getBoolean(SV_SW, true));
         mFmSW.setChecked(sharedPreferences.getBoolean(FM_SW, true));
         mViaSW.setChecked(sharedPreferences.getBoolean(VP_SW, true));
-
     }
 
     @Override

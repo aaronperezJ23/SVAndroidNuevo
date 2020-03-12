@@ -63,20 +63,13 @@ public class PulsarLista extends AppCompatActivity {
         Intent intent = getIntent();
         mRutaActual = (HelperParser.Ruta) intent.getParcelableExtra("rutaActual");
 
-        //Log.d("HOLA", mRutaActual.getmCategoria());
-
-
         TextView textView1 = findViewById(R.id.textNom);
         textView1.setText(mRutaActual.getmName());
+
         TextView textView2 = findViewById(R.id.textKms);
         textView2.setText(getString(R.string.kms, mRutaActual.getmLongitud().toString()));
 
         TextView textView3 = findViewById(R.id.textCategoria);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            textView3.setText(Html.fromHtml("<h2>"+R.string.cate+"</h2>" + mRutaActual.getmCategoria(), Html.FROM_HTML_MODE_COMPACT));
-        } else {
-            textView3.setText(Html.fromHtml("<h2>"+R.string.cate+"</h2>" + mRutaActual.getmCategoria()));
-        }*/
         textView3.setText(mRutaActual.getmCategoria());
 
         TextView textView4 = findViewById(R.id.textInicio);
@@ -124,9 +117,7 @@ public class PulsarLista extends AppCompatActivity {
         botonFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 saveData();
-                //SendArrayIntent();
                 botonFav.setEnabled(false);
             }
         });
@@ -139,37 +130,12 @@ public class PulsarLista extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        ArrayList<HelperParser.Ruta> mArrayComparacion = mArray;
-
-        /*if(mArray!=null) {
-            for (int i = 0; i < mArray.size(); i++) {
-                for (int j = 0; j < mArray.size(); j++) {
-                    if (!mArray.get(i).getmName().equals(mRutaActual.getmName())) {
-                        Log.d(TAG, "NO COINCIDE");
-                        mArray.add(mRutaActual);
-                        break;
-
-
-
-                    }else{
-                        Log.d(TAG, "COINCIDE");
-
-                    }
-                }
-            }
-        }else{
-            mArray.add(mRutaActual);
-        }*/
-
         mArray.add(mRutaActual);
 
         Gson gson = new Gson();
         String json = gson.toJson(mArray);
         editor.putString(KEY_ARRAY, json);
         editor.commit();
-
-
-        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
     }
 
     public void loadData() {
@@ -190,11 +156,5 @@ public class PulsarLista extends AppCompatActivity {
 
             }
         }
-
     }
-
-
-
-
-
 }
