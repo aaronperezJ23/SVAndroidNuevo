@@ -57,22 +57,9 @@ import javax.net.ssl.SSLContext;
 public class  MainActivity extends AppCompatActivity implements LocationListener {
 
     private final static int MY_PERMISSIONS_GPS_FINE_LOCATION = 1;
-    Intent mServiceIntent;
-
-    private final String TAG = getClass().getSimpleName();
-    private ArrayList<String> mNames;
-    private boolean mListSimple = false;
-    private ListView lv = null;
-    private MyAdapter myadapter;
-    private LocationManager mLocManager;
-    private Location mCurrentLocation;
     private static final Integer MY_PERMISSIONS_GPS = 1;
 
-    public static ArrayList<HelperParser.Ruta> mRutas;
-    public static ArrayList<HelperParser.Ruta> mRutasAux = new ArrayList<>();
-
-    private ProgressDialog mPd;
-
+    private final String TAG = getClass().getSimpleName();
     private static final String SHARED_PREFS = "sharedPrefs";
 
     private static final String CERCANIA = "cercania";
@@ -83,6 +70,19 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
     private static final String FM_SW = "fmsw";
     private static final String VP_SW = "vpsw";
 
+    Intent mServiceIntent;
+
+    private ListView mListView = null;
+    private MyAdapter mMyAdapter;
+
+    private LocationManager mLocManager;
+    private Location mCurrentLocation;
+
+    public static ArrayList<HelperParser.Ruta> mRutas;
+    public static ArrayList<HelperParser.Ruta> mRutasAux = new ArrayList<>();
+
+    private ProgressDialog mProgressDialog;
+
     private static int mCercania;
     private static int mLongitud;
 
@@ -91,31 +91,21 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
     private static Boolean mFM;
     private static Boolean mVP;
 
-    private static Boolean permitido=false;
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        /*if(mRutas!=null) {
-            loadData();
-            TestSSL();
-        }*/
-    }
+    private static Boolean mPermitido=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
 
         loadData();
-        //TestSSL();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        lv = findViewById(R.id.lista);
+        mListView = findViewById(R.id.lista);
         this.setTitle(R.string.Titulo);
 
         //Te lleva a la descripcion de la lista
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
@@ -123,8 +113,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
             HelperParser.Ruta rutita = mRutasAux.get(position);
             intent.putExtra("rutaActual", rutita);
             intent.putExtra("favorito", true);
-            //startActivity(intent);
-                startActivityForResult(intent, 2);
+            startActivityForResult(intent, 2);
 
             }
         });
@@ -142,10 +131,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
             startService();
             loadData();
             TestSSL();
-            permitido=true;
-            //if(mPd.isShowing()){
-              //  mPd.dismiss();
-            //}
+            mPermitido=true;
         }
     }
 
@@ -155,7 +141,6 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
 
         if (resultCode == Activity.RESULT_OK) {
             if(requestCode==2){
-                //Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
                 loadData();
                 TestSSL();
             }else if(requestCode==3){
@@ -177,8 +162,6 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
         mSV = sharedPreferences.getBoolean(SV_SW, true);
         mFM = sharedPreferences.getBoolean(FM_SW, true);
         mVP = sharedPreferences.getBoolean(VP_SW, true);
-
-        Toast.makeText(this, String.valueOf(mCercania), Toast.LENGTH_SHORT).show();
     }
 
     // Este receiver gestiona mensajes recibidos con el intent 'location-event-position'
@@ -207,7 +190,6 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
             ActivityCompat.requestPermissions(MainActivity.this, new  String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_GPS);
         }else{
-            Toast.makeText(getApplicationContext(), R.string.inthepastPermi, Toast.LENGTH_SHORT).show();
             startLocation();
         }
     }
@@ -252,9 +234,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
     @Override
     public void onLocationChanged(Location location) {
         mCurrentLocation=location;
-        Log.d(TAG, mCurrentLocation.toString());
-
-        if(permitido && mRutas!=null){
+        if(mPermitido && mRutas!=null){
             TestSSL();
         }
     }
@@ -306,8 +286,10 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
             LayoutInflater layoutInflater = LayoutInflater.from(this.context);
 
             v = layoutInflater.inflate(R.layout.descripcion_lista, null);
+
             TextView textView1 = (TextView) v.findViewById(R.id.textNom);
             textView1.setText(rutas.get(i).getmName());
+
             TextView textView2 = (TextView) v.findViewById(R.id.textKms);
             textView2.setText(rutas.get(i).getmLongitud().toString() + " km");
 
@@ -316,6 +298,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
 
             TextView textView3 = (TextView) v.findViewById(R.id.textValoracion);
             textView3.setText(rutas.get(i).getmCategoria());
+
             ImageView imageView = v.findViewById(R.id.imageView2);
 
             if(rutas.get(i).getmDescTiempo()!=null) {
@@ -356,24 +339,6 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.overflowmenu, menu);
-
-        /*final MenuItem searchItem = menu.findItem(R.id.buscar);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        //permite modificar el hint que el EditText muestra por defecto
-        searchView.setQueryHint(getText(R.string.buscar));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //se oculta el EditText
-                searchView.setQuery("", false);
-                searchView.setIconified(true);
-                return true;
-            }
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });*/
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -411,16 +376,15 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
                 .build();
 
         if(mRutas==null){
-            mPd = new ProgressDialog(MainActivity.this);
-            mPd.setTitle(getString(R.string.adquiriendo_dat));
-            mPd.show();
+            mProgressDialog = new ProgressDialog(MainActivity.this);
+            mProgressDialog.setTitle(getString(R.string.adquiriendo_dat));
+            mProgressDialog.show();
         }
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 Log.e(TAG, request.toString());
-                //mPd.dismiss();
             }
 
             @Override
@@ -432,83 +396,68 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
 
                     Log.d(TAG, response.toString());
                     HelperParser myparser = new HelperParser();
-                    if(mRutas==null) {
+                    if (mRutas == null) {
                         mRutas = myparser.parseRutas(response.body().string());
                     }
 
                     for (HelperParser.Ruta mRuta : mRutas) {
                         HelperParser.Localizacion[] localizacion = mRuta.getmLocalizacion();
                         for (HelperParser.Localizacion localizacion1 : localizacion) {
-                            double[] loc =UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(),localizacion1.getLon()));
-                            //System.out.println(mRuta.getmName() + ", Latitud: " + loc[0] + ", Longitud: " + loc[1]);
+                            double[] loc = UTM2LatLon.transformarLatitudLongitud(UTM2LatLon.crearCadena(localizacion1.getLat(), localizacion1.getLon()));
                             Location locats = new Location("");
                             locats.setLatitude(loc[0]);
                             locats.setLongitude(loc[1]);
-                            if(mCurrentLocation!=null){
+                            if (mCurrentLocation != null) {
                                 mRuta.setmCercania(mCurrentLocation.distanceTo(locats));
                             }
-                            if(mRuta.getmDescTiempo()==null){
+                            if (mRuta.getmDescTiempo() == null) {
                                 weatherInfo(loc[0], loc[1], mRuta);
                             }
-
-
                             break;
                         }
-
                     }
-                    if(mRutasAux!=null){
+                    if (mRutasAux != null) {
                         mRutasAux.clear();
                     }
                     for (HelperParser.Ruta mRuta : mRutas) {
-                        Log.d(TAG, String.valueOf(mCercania + "-" + mRuta.getmCercania()));
-                        if(mRuta.getmLongitud()<mLongitud && mRuta.getmCercania()<mCercania*1000){
-                            if(mFM && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.fm))) {
+                        if (mRuta.getmLongitud() < mLongitud && mRuta.getmCercania() < mCercania * 1000) {
+                            if (mFM && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.fm))) {
                                 mRutasAux.add(mRuta);
                             }
-                            if(mSV && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.sv))) {
+                            if (mSV && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.sv))) {
                                 mRutasAux.add(mRuta);
                             }
-                            if(mENP && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.enp))) {
+                            if (mENP && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.enp))) {
                                 mRutasAux.add(mRuta);
                             }
-                            if(mVP && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.rvp))) {
+                            if (mVP && mRuta.getmCategoria().equalsIgnoreCase(getString(R.string.rvp))) {
                                 mRutasAux.add(mRuta);
                             }
-                            Log.d(TAG, mRuta.getmCategoria());
                         }
                     }
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Collections.sort(mRutasAux,new OrdenarLista.cusComparatorCerc());
-                            myadapter=new MyAdapter(MainActivity.this, R.layout.descripcion_lista,mRutasAux);
-                            lv.setAdapter(myadapter);
-
-                            if(mPd!=null){
-                                if(mPd.isShowing()){
-                                    mPd.dismiss();
+                            Collections.sort(mRutasAux, new OrdenarLista.cusComparatorCerc());
+                            mMyAdapter = new MyAdapter(MainActivity.this, R.layout.descripcion_lista, mRutasAux);
+                            mListView.setAdapter(mMyAdapter);
+                            if (mProgressDialog != null) {
+                                if (mProgressDialog.isShowing()) {
+                                    mProgressDialog.dismiss();
                                 }
                             }
-
                         }
                     });
-
-
-
                 }
          }
-
         });
     }
 
     private void weatherInfo(double lat, double lon, final HelperParser.Ruta ruta){
         OpenWeatherMapHelper helper = new OpenWeatherMapHelper(getString(R.string.OPEN_WEATHER_MAP_API_KEY));
-
         helper.setUnits(Units.METRIC);
-
         helper.setLang(Lang.SPANISH);
-
         helper.getCurrentWeatherByGeoCoordinates(lat,  lon, new CurrentWeatherCallback() {
             @Override
             public void onSuccess(CurrentWeather currentWeather) {

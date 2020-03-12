@@ -39,12 +39,11 @@ public class MyService extends Service implements LocationListener {
 
     private final String TAG = getClass().getSimpleName();
     private LocationManager mLocManager = null;
-    Location rutaLoc = new Location("");
     private ArrayList<HelperParser.Ruta> mArrayRutas = new ArrayList<>();
 
     public MyService() {
-    }
 
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -54,10 +53,7 @@ public class MyService extends Service implements LocationListener {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        //loadData();
         Log.d(TAG, getString(R.string.servCreado));
-
     }
 
     private void createNotificationChannel() {
@@ -80,7 +76,6 @@ public class MyService extends Service implements LocationListener {
         super.onStartCommand(intent, flags, startId);
 
         // Set Foreground service
-
         createNotificationChannel();
 
         Notification notification = new NotificationCompat.Builder(this, "1")
@@ -130,7 +125,6 @@ public class MyService extends Service implements LocationListener {
 
         if(restoreArray!=null) {
             for (int i = 0; i < restoreArray.size(); i++) {
-                //Log.d(TAG, restoreArray.get(i).getmName());
                 mArrayRutas.add(restoreArray.get(i));
 
             }
@@ -168,7 +162,6 @@ public class MyService extends Service implements LocationListener {
                 locatis.setLatitude(loc[0]);
                 locatis.setLongitude(loc[1]);
                 if(location.distanceTo(locatis)<1000){
-                    Log.d(TAG, mRuta.getmName());
                     createNotificationChannel2();
 
                     // Create an explicit intent for an Activity in your app
@@ -196,10 +189,6 @@ public class MyService extends Service implements LocationListener {
             }
 
         }
-
-        Toast.makeText(this, "New Location", Toast.LENGTH_SHORT).show();
-
-        //float distancia = location.distanceTo(rutaLoc);
         Intent intent = new Intent(HelperGlobal.INTENT_LOCALIZATION_ACTION);
         intent.putExtra(HelperGlobal.KEY_MESSAGE, R.string.nuevaLocalizacion);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);

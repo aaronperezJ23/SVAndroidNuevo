@@ -29,8 +29,6 @@ package com.example.svandroidnuevo;
                     //new LatLng(426379.04156989, 4528751.30457018),
                     //new LatLng(426391.64703101, 4528771.11285669))
             .width(5).color(Color.BLUE);
-
-
     */
 
 public class UTM2LatLon {
