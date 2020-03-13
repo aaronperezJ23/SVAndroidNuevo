@@ -91,8 +91,6 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
     private static Boolean mFM;
     private static Boolean mVP;
 
-    private static Boolean mPermitido=false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -131,7 +129,6 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
             startService();
             loadData();
             TestSSL();
-            mPermitido=true;
         }
     }
 
@@ -234,7 +231,7 @@ public class  MainActivity extends AppCompatActivity implements LocationListener
     @Override
     public void onLocationChanged(Location location) {
         mCurrentLocation=location;
-        if(mPermitido && mRutas!=null){
+        if(mRutas!=null){
             TestSSL();
         }
     }
