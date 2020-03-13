@@ -173,8 +173,8 @@ public class MyService extends Service implements LocationListener {
 
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "2")
                             .setSmallIcon(R.drawable.path)
-                            .setContentTitle("Ruta cercana")
-                            .setContentText(mRuta.getmName() + " está cerca de ti!")
+                            .setContentTitle(getString(R.string.cercanaRuta))
+                            .setContentText(mRuta.getmName() + getString(R.string.estasCerca))
                             // Set the intent that will fire when the user taps the notification
                             .setContentIntent(pendingIntent)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT);

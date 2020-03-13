@@ -51,8 +51,8 @@ public class ListaFavs extends AppCompatActivity {
 
                 Intent intent = new Intent(ListaFavs.this, PulsarLista.class);
                 HelperParser.Ruta rutita = mArray.get(position);
-                intent.putExtra("rutaActual", rutita);
-                intent.putExtra("favorito", false);
+                intent.putExtra(getString(R.string.rutaActual), rutita);
+                intent.putExtra(getString(R.string.favorito), false);
                 startActivity(intent);
 
             }

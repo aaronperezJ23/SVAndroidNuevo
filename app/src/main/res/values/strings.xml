@@ -57,4 +57,9 @@
     <string name="NewLocali">New Location:</string>
     <string name="kms">%s kms</string>
     <string name="grados">%s º</string>
+    <string name="rutaActual">rutaActual</string>
+    <string name="favorito">favorito</string>
+    <string name="cercanaRuta">Ruta cercana</string>
+    <string name="estasCerca">\" está cerca de ti!\"</string>
+    <string name="rutaLoc">rutaLoc</string>
 </resources>

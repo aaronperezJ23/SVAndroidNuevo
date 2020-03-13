@@ -53,7 +53,7 @@ public class PulsarLista extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                intent.putExtra("rutaLoc", mRutaActual);
+                intent.putExtra(getString(R.string.rutaLoc), mRutaActual);
                 //intent.putExtra("DESC", "Texto de prueba");
                 startActivity(intent);
                 //startActivityForResult(intent, 1);
@@ -61,7 +61,7 @@ public class PulsarLista extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        mRutaActual = (HelperParser.Ruta) intent.getParcelableExtra("rutaActual");
+        mRutaActual = (HelperParser.Ruta) intent.getParcelableExtra(getString(R.string.rutaActual));
 
         TextView textView1 = findViewById(R.id.textNom);
         textView1.setText(mRutaActual.getmName());
